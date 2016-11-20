@@ -8,7 +8,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 
-
 <TabPane prefHeight="600.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
   <tabs>
     <Tab text="Games">
@@ -28,7 +27,7 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="565.0" prefWidth="564.0">
                            <children>
-                              <Button layoutX="25.0" layoutY="23.0" mnemonicParsing="false" text="Starten" />
+                              <Button fx:id="startButton" layoutX="25.0" layoutY="23.0" mnemonicParsing="false" text="Starten" />
                               <CheckBox layoutX="25.0" layoutY="57.0" mnemonicParsing="false" text="Zur Playlist hinzufügen" />
                            </children>
                         </AnchorPane>
