@@ -1,4 +1,4 @@
-package sample;
+package windows;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

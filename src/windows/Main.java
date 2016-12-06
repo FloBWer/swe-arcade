@@ -1,4 +1,4 @@
-package sample;
+package windows;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -22,7 +22,7 @@ public class Main extends Application {
     // TODO: Zu Demonstrationszwecken auskommentiert, sollte später wieder
     // verwendet werden
     /**
-     * Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+     * Parent root = FXMLLoader.load(getClass().getResource("windows.fxml"));
      * primaryStage.setTitle("ArcadeBox"); primaryStage.setScene(new Scene(root,
      * 800, 600)); primaryStage.show();
      */
