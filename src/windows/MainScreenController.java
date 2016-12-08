@@ -7,7 +7,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
 
-public class mainScreenController {
+public class MainScreenController {
 
 
     @FXML

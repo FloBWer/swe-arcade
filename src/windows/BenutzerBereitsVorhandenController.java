@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 /**
  * Created by Florian on 06.12.2016.
  */
-public class benutzerBereitsVorhandenController {
+public class BenutzerBereitsVorhandenController {
 
 
     @FXML

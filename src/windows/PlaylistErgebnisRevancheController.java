@@ -8,7 +8,7 @@ import javafx.scene.control.TableView;
 /**
  * Created by Florian on 06.12.2016.
  */
-public class playlistErgebnisRevancheController {
+public class PlaylistErgebnisRevancheController {
     @FXML
     Button playlistRevancheJa;
     @FXML

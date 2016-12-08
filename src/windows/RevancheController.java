@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 /**
  * Created by Florian on 06.12.2016.
  */
-public class revancheController {
+public class RevancheController {
     @FXML
     Button revancheJa;
     @FXML
