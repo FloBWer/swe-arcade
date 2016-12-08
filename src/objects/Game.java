@@ -17,6 +17,14 @@ public class Game {
         this.pfad=pfad;
     }
 
+    public String getName(){
+        return this.name;
+    }
+
+    public String getPfad(){
+        return this.pfad;
+    }
+
     public static List<Game> readGamesFolder(){
         List<Game> gamesInFolder=new ArrayList<>();
         File f=new File("C:\\Users\\Florian\\Desktop\\Games"); //nur als Test, muss noch angepasst werden
