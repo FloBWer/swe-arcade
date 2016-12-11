@@ -1,12 +1,11 @@
 package windows;
 
+import handler.UserHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SplitMenuButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import objects.Game;
+import objects.User;
 
 import java.io.File;
 import java.util.List;
@@ -42,9 +41,10 @@ public class MainScreenController {
     Button benutzerAendernSpeichern;
 
     List<Game> gamesUebergeben;
-
+    UserHandler userHandler;
 
     public void initialize(){
+        userHandler = new UserHandler();
         gamesUebergeben= Game.readGamesFolder();
         for (Game uebergeben : gamesUebergeben) {
             gamesVerfuegbareSpiele.getItems().add(uebergeben.getName());
@@ -54,7 +54,8 @@ public class MainScreenController {
 
     @FXML
     public void clickBenutzerErstellen(ActionEvent event){
-
+        User newUser = userHandler.newUser(benutzerTextBoxAnlegen.getText());
+        benutzerAuswahlZuAendern.getItems().add(new MenuItem(newUser.getName()));
     }
 
     @FXML
