@@ -46,8 +46,15 @@ public class MainScreenController {
     public void initialize(){
         userHandler = new UserHandler();
         gamesUebergeben= Game.readGamesFolder();
-        for (Game uebergeben : gamesUebergeben) {
-            gamesVerfuegbareSpiele.getItems().add(uebergeben.getName());
+        if(gamesUebergeben.size()==0)
+        {
+            gamesVerfuegbareSpiele.getItems().add("Kein Spiel vorhanden!");
+            gamesSpielen.setDisable(true);
+        }
+        else {
+            for (Game uebergeben : gamesUebergeben) {
+                gamesVerfuegbareSpiele.getItems().add(uebergeben.getName());
+            }
         }
     }
 
