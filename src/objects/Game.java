@@ -27,7 +27,15 @@ public class Game {
 
     public static List<Game> readGamesFolder(){
         List<Game> gamesInFolder=new ArrayList<>();
-        File f=new File("C:\\Users\\Florian\\Desktop\\Games"); //nur als Test, muss noch angepasst werden
+        File f=new File("Games");
+        try {
+            f = new File(Game.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()+"\\Games");
+            if(!f.exists()){
+                f.mkdir();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         File[] fileArray = f.listFiles();
         for(File gelesen : fileArray){
             if(gelesen.getName().endsWith(".jar")){
