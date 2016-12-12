@@ -44,18 +44,8 @@
                                                                             <children>
                                                                                 <Label layoutX="14.0" layoutY="14.0" text="Spieler 1:" />
                                                                                 <Label layoutX="14.0" layoutY="61.0" text="Spieler 2:" />
-                                                                                <SplitMenuButton fx:id="gamesSpielerEins" layoutX="78.0" layoutY="9.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="148.0" text="User">
-                                                                                    <items>
-                                                                                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                                                                                        <MenuItem mnemonicParsing="false" text="Action 2" />
-                                                                                    </items>
-                                                                                </SplitMenuButton>
-                                                                                <SplitMenuButton fx:id="gamesSpielerZwei" layoutX="78.0" layoutY="56.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="148.0" text="User_2">
-                                                                                    <items>
-                                                                                        <MenuItem mnemonicParsing="false" text="Action 1" />
-                                                                                        <MenuItem mnemonicParsing="false" text="Action 2" />
-                                                                                    </items>
-                                                                                </SplitMenuButton>
+                                                            <ChoiceBox fx:id="gamesSpielerEins" layoutX="83.0" layoutY="9.0" prefWidth="150.0" />
+                                                            <ChoiceBox fx:id="gamesSpielerZwei" layoutX="83.0" layoutY="56.0" prefWidth="150.0" />
                                                                             </children>
                                                                         </AnchorPane>
                                                                     </items>
