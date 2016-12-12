@@ -1,6 +1,8 @@
 package windows;
 
 import handler.UserHandler;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -18,9 +20,9 @@ public class MainScreenController {
     @FXML
     Button gamesZurPlaylistHinzufügen;
     @FXML
-    SplitMenuButton gamesSpielerEins;
+    ChoiceBox gamesSpielerEins;
     @FXML
-    SplitMenuButton gamesSpielerZwei;
+    ChoiceBox gamesSpielerZwei;
     @FXML
     Button gamesPlaylistStarten;
     @FXML
@@ -46,17 +48,42 @@ public class MainScreenController {
     public void initialize(){
         userHandler = new UserHandler();
         gamesUebergeben= Game.readGamesFolder();
+        gamesSpielen.setDisable(true);
+        gamesZurPlaylistHinzufügen.setDisable(true);
+        gamesPlaylistStarten.setDisable(true);
+
         if(gamesUebergeben.size()==0)
         {
             gamesVerfuegbareSpiele.getItems().add("Kein Spiel vorhanden!");
-            gamesSpielen.setDisable(true);
+
         }
         else {
             for (Game uebergeben : gamesUebergeben) {
                 gamesVerfuegbareSpiele.getItems().add(uebergeben.getName());
             }
         }
+
+        //Listener für Markierte Spiele
+
+        gamesVerfuegbareSpiele.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(gamesUebergeben.size()!=0)
+                gamesZurPlaylistHinzufügen.setDisable(false);
+                gamesSpielen.setDisable(false);
+            }
+        });
+
     }
+
+   /* @FXML
+    public void clickVerfuegbareSpiele(ActionEvent event){
+        if(gamesVerfuegbareSpiele.getSelectionModel().getSelectedItem()!=null
+                &&gamesUebergeben.size()!=0){
+            gamesZurPlaylistHinzufügen
+        }
+    }*/
 
 
     @FXML
