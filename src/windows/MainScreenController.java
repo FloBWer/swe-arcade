@@ -43,6 +43,7 @@ public class MainScreenController {
     Button benutzerAendernSpeichern;
 
     List<Game> gamesUebergeben;
+    List<Game> playList;
     UserHandler userHandler;
 
     public void initialize(){
@@ -103,7 +104,12 @@ public class MainScreenController {
 
     @FXML
     public void clickZurPlaylistHinzufuegen(ActionEvent event){
-
+        String selected=(String)gamesVerfuegbareSpiele.getSelectionModel().getSelectedItem();
+        for (Game uebergeben : gamesUebergeben) {
+            if(uebergeben.getName().equals(selected)){
+                gamesAktuellePlaylist.getItems().add(uebergeben.getName());
+            }
+        }
     }
 
     @FXML
