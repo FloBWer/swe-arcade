@@ -22,9 +22,9 @@ public class MainScreenController {
   @FXML
   Button gamesZurPlaylistHinzufügen;
   @FXML
-  ChoiceBox gamesSpielerEins;
+  ComboBox gamesSpielerEins;
   @FXML
-  ChoiceBox gamesSpielerZwei;
+  ComboBox gamesSpielerZwei;
   @FXML
   Button gamesPlaylistStarten;
   @FXML
@@ -72,6 +72,10 @@ public class MainScreenController {
       public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
         if (gamesUebergeben.size() != 0) {
           gamesZurPlaylistHinzufügen.setDisable(false);
+        }
+        if(gamesUebergeben.size()!=0
+            &&gamesSpielerEins.getSelectionModel().getSelectedItem()!=null
+            &&gamesSpielerZwei.getSelectionModel().getSelectedItem()!=null){
           gamesSpielen.setDisable(false);
         }
       }
@@ -96,6 +100,10 @@ public class MainScreenController {
   public void clickBenutzerErstellen(ActionEvent event) {
     User newUser = userHandler.newUser(benutzerTextBoxAnlegen.getText());
     benutzerAuswahlZuAendern.getItems().add(new MenuItem(newUser.getName()));
+    //Test im Bezug auf Namensübergabe
+    gamesSpielerEins.getItems().add(newUser.getName());
+    gamesSpielerZwei.getItems().add(newUser.getName());
+
   }
 
   @FXML
@@ -158,7 +166,7 @@ public class MainScreenController {
 
       try {
         proc = Runtime.getRuntime().exec(
-            "java -jar " + pfad + " " + "Hans" + " " + "Wurst");
+            "java -jar " + pfad + " " + gamesSpielerEins.getSelectionModel().getSelectedItem() + " " + gamesSpielerZwei.getSelectionModel().getSelectedItem());
         proc.waitFor();
       } catch (Exception e) {
         e.printStackTrace();
@@ -169,7 +177,9 @@ public class MainScreenController {
   //Darf Playlist gestartet werdern?
 
   public void playlistAktivieren(){
-    if (gamesAktuellePlaylist.getItems().size() != 0) {
+    if (gamesAktuellePlaylist.getItems().size() != 0
+        &&gamesSpielerEins.getSelectionModel().getSelectedItem()!=null
+        &&gamesSpielerZwei.getSelectionModel().getSelectedItem()!=null) {
       gamesPlaylistStarten.setDisable(false);
     }else{
       gamesPlaylistStarten.setDisable(true);
