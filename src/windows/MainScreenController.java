@@ -28,7 +28,7 @@ public class MainScreenController {
   @FXML
   Button gamesPlaylistStarten;
   @FXML
-  public ListView gamesAktuellePlaylist;
+  ListView gamesAktuellePlaylist;
   @FXML
   ListView gamesVerfuegbareSpiele;
   @FXML
@@ -77,6 +77,17 @@ public class MainScreenController {
       }
     });
 
+    //Listener für Playlist
+
+    gamesVerfuegbareSpiele.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+      @Override
+      public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+
+
+      }
+    });
+
   }
 
 
@@ -110,6 +121,7 @@ public class MainScreenController {
           }
 
         });
+        playlistAktivieren();
 
 
 
@@ -141,6 +153,17 @@ public class MainScreenController {
 
   }
 
+  //Darf Playlist gestartet werdern?
+
+  public void playlistAktivieren(){
+    if (gamesAktuellePlaylist.getItems().size() != 0) {
+      gamesPlaylistStarten.setDisable(false);
+    }else{
+      gamesPlaylistStarten.setDisable(true);
+    }
+  }
+
+
   //Button zum löschen der Spiele aus der Playlist
 
   class ButtonListCell extends ListCell<String> {
@@ -159,6 +182,7 @@ public class MainScreenController {
           @Override
           public void handle(ActionEvent event) {
             gamesAktuellePlaylist.getItems().remove(obj);
+            playlistAktivieren();
           }
         });
         setGraphic(butt);
