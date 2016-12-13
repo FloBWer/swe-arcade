@@ -4,8 +4,10 @@ import handler.UserHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.Callback;
 import objects.Game;
 import objects.User;
 
@@ -26,7 +28,7 @@ public class MainScreenController {
   @FXML
   Button gamesPlaylistStarten;
   @FXML
-  ListView gamesAktuellePlaylist;
+  public ListView gamesAktuellePlaylist;
   @FXML
   ListView gamesVerfuegbareSpiele;
   @FXML
@@ -68,21 +70,15 @@ public class MainScreenController {
 
       @Override
       public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-        if (gamesUebergeben.size() != 0)
+        if (gamesUebergeben.size() != 0) {
           gamesZurPlaylistHinzufügen.setDisable(false);
-        gamesSpielen.setDisable(false);
+          gamesSpielen.setDisable(false);
+        }
       }
     });
 
   }
 
-   /* @FXML
-    public void clickVerfuegbareSpiele(ActionEvent event){
-        if(gamesVerfuegbareSpiele.getSelectionModel().getSelectedItem()!=null
-                &&gamesUebergeben.size()!=0){
-            gamesZurPlaylistHinzufügen
-        }
-    }*/
 
 
   @FXML
@@ -107,6 +103,16 @@ public class MainScreenController {
     for (Game uebergeben : gamesUebergeben) {
       if (uebergeben.getName().equals(selected)) {
         gamesAktuellePlaylist.getItems().add(uebergeben.getName());
+        gamesAktuellePlaylist.setCellFactory(new Callback<ListView<String>, ListCell>() {
+
+          public ListCell call(ListView<String> param) {
+            return new ButtonListCell();
+          }
+
+        });
+
+
+
       }
     }
   }
@@ -133,6 +139,31 @@ public class MainScreenController {
   @FXML
   public void clickPlaylistStarten(ActionEvent event) {
 
+  }
+
+  //Button zum löschen der Spiele aus der Playlist
+
+  class ButtonListCell extends ListCell<String> {
+
+    public void updateItem(String obj, boolean empty) {
+      super.updateItem(obj, empty);
+      if (empty) {
+        setText(null);
+        setGraphic(null);
+      } else {
+        setText(obj);
+
+        Button butt = new Button();
+        butt.setText("<");
+        butt.setOnAction(new EventHandler<ActionEvent>() {
+          @Override
+          public void handle(ActionEvent event) {
+            gamesAktuellePlaylist.getItems().remove(obj);
+          }
+        });
+        setGraphic(butt);
+      }
+    }
   }
 }
 
