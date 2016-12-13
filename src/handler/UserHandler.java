@@ -1,8 +1,8 @@
 package handler;
 
 import objects.User;
+import utils.ConfigFileReader;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,11 +11,6 @@ import java.util.List;
 public class UserHandler {
 
   private List<User> users;
-
-  public UserHandler() {
-    users = new ArrayList<User>();
-    init();
-  }
 
   //Getter
 
@@ -28,17 +23,36 @@ public class UserHandler {
     return null;
   }
 
+  public List<User> getUsers() {
+    return users;
+  }
+
   //Methods
 
   public User newUser(String name) {
-    User newUser = new User(name);
-    if(!users.contains(newUser)) {
+    if(getUser(name) == null) {
+      User newUser = new User(name);
       users.add(newUser);
+      saveUsers();
+      return newUser;
     }
-    return newUser;
+    return null;
   }
 
-  private void init() {
+  private void saveUsers() {
+    ConfigFileReader.saveUsers(this);
+  }
 
+  public void removeUser(String name) {
+    users.remove(getUser(name));
+    saveUsers();
+  }
+
+  public User changeUser(String name, String newName) {
+    User changedUser = newUser(newName);
+    if(changedUser != null) {
+      removeUser(name);
+    }
+    return changedUser;
   }
 }

@@ -6,12 +6,17 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import objects.Game;
 import objects.User;
+import utils.ConfigFileReader;
 
-import java.io.File;
 import java.util.List;
 
 public class MainScreenController {
@@ -36,7 +41,7 @@ public class MainScreenController {
   @FXML
   Button benutzerErstellen;
   @FXML
-  SplitMenuButton benutzerAuswahlZuAendern;
+  ComboBox benutzerAuswahlZuAendern;
   @FXML
   Button benutzerLoeschen;
   @FXML
@@ -49,7 +54,7 @@ public class MainScreenController {
   UserHandler userHandler;
 
   public void initialize() {
-    userHandler = new UserHandler();
+    initUsers();
     gamesUebergeben = Game.readGamesFolder();
     gamesSpielen.setDisable(true);
     gamesZurPlaylistHinzufügen.setDisable(true);
@@ -94,26 +99,71 @@ public class MainScreenController {
 
   }
 
+  private void initUsers() {
+    userHandler = ConfigFileReader.buildUserHandler();
+    userHandler.getUsers().forEach(user -> {
+      addUserToComboBoxes(user);
+    });
+  }
 
 
   @FXML
   public void clickBenutzerErstellen(ActionEvent event) {
     User newUser = userHandler.newUser(benutzerTextBoxAnlegen.getText());
-    benutzerAuswahlZuAendern.getItems().add(new MenuItem(newUser.getName()));
-    //Test im Bezug auf Namensübergabe
+    if(newUser != null) {
+      addUserToComboBoxes(newUser);
+    }
+    else {
+      showBenutzerBereitsVorhanden();
+    }
+  }
+
+  private void showBenutzerBereitsVorhanden() {
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("benutzerBereitsVorhanden.fxml"));
+      Stage stage = new Stage();
+      stage.setTitle("Fehler!");
+      stage.getIcons().add(new Image(getClass().getResourceAsStream("images/pong.png")));
+      stage.setScene(new Scene(root));
+      stage.setAlwaysOnTop(true);
+      stage.requestFocus();
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void addUserToComboBoxes(User newUser) {
+    benutzerAuswahlZuAendern.getItems().add(newUser.getName());
     gamesSpielerEins.getItems().add(newUser.getName());
     gamesSpielerZwei.getItems().add(newUser.getName());
+  }
 
+  private void removeUserFromComboBoxes(String name) {
+    benutzerAuswahlZuAendern.getItems().remove(name);
+    gamesSpielerEins.getItems().remove(name);
+    gamesSpielerZwei.getItems().remove(name);
   }
 
   @FXML
   public void clickBenutzerLoeschen(ActionEvent event) {
-
+    String name = benutzerAuswahlZuAendern.getSelectionModel().getSelectedItem().toString();
+    userHandler.removeUser(name);
+    removeUserFromComboBoxes(name);
   }
 
   @FXML
   public void clickBenutzerAendernSpeichern(ActionEvent event) {
-
+    String name = benutzerAuswahlZuAendern.getSelectionModel().getSelectedItem().toString();
+    String newName = benutzerTextBoxAendern.getText();
+    User newUser = userHandler.changeUser(name, newName);
+    if(newUser != null) {
+      removeUserFromComboBoxes(name);
+      addUserToComboBoxes(newUser);
+    }
+    else {
+      showBenutzerBereitsVorhanden();
+    }
   }
 
   @FXML
