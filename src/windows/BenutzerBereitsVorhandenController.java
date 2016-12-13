@@ -11,11 +11,11 @@ import javafx.stage.Stage;
 public class BenutzerBereitsVorhandenController {
 
 
-    @FXML
-    Button bereitsVorhandenOK;
+  @FXML
+  Button bereitsVorhandenOK;
 
-    public void clickBereitsVorhandenOK(ActionEvent event){
-        Stage stage = (Stage) bereitsVorhandenOK.getScene().getWindow();
-        stage.close();
-    }
+  public void clickBereitsVorhandenOK(ActionEvent event) {
+    Stage stage = (Stage) bereitsVorhandenOK.getScene().getWindow();
+    stage.close();
+  }
 }

@@ -8,20 +8,20 @@ import javafx.scene.control.Button;
  * Created by Florian on 06.12.2016.
  */
 public class RevancheController {
-    @FXML
-    Button revancheJa;
-    @FXML
-    Button revancheNein;
+  @FXML
+  Button revancheJa;
+  @FXML
+  Button revancheNein;
 
 
-    @FXML
-    public void clickRevancheJa(ActionEvent event){
+  @FXML
+  public void clickRevancheJa(ActionEvent event) {
 
-    }
+  }
 
-    @FXML
-    public void clickRevancheNein(ActionEvent event){
+  @FXML
+  public void clickRevancheNein(ActionEvent event) {
 
-    }
+  }
 
 }

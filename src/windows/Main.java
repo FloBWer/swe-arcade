@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -28,7 +29,7 @@ import objects.Game;
 public class Main extends Application {
 
   @Override
-  public void start(Stage primaryStage) throws Exception{
+  public void start(Stage primaryStage) throws Exception {
     Parent root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
     primaryStage.setTitle("ArcadeBox");
     primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("images/pong.png")));
@@ -58,7 +59,6 @@ public class Main extends Application {
 
     launch(args);
   }
-
 
 
 }
