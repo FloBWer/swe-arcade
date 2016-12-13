@@ -122,9 +122,6 @@ public class MainScreenController {
 
         });
         playlistAktivieren();
-
-
-
       }
     }
   }
@@ -150,7 +147,23 @@ public class MainScreenController {
 
   @FXML
   public void clickPlaylistStarten(ActionEvent event) {
+    Process proc = null;
+    String pfad="";
+    for (Object test: gamesAktuellePlaylist.getItems()) {
+      for (Game uebergeben : gamesUebergeben) {
+        if (uebergeben.getName().equals(test)) {
+          pfad = uebergeben.getPfad();
+        }
+      }
 
+      try {
+        proc = Runtime.getRuntime().exec(
+            "java -jar " + pfad + " " + "Hans" + " " + "Wurst");
+        proc.waitFor();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
   }
 
   //Darf Playlist gestartet werdern?
