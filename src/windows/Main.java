@@ -1,5 +1,8 @@
 package windows;
 
+import javafx.scene.layout.HBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Priority;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import javafx.application.Application;
@@ -32,6 +35,25 @@ public class Main extends Application {
     primaryStage.setScene(new Scene(root, 600, 400));
     primaryStage.show();
   }
+
+  public static class HBoxCell extends HBox {
+    Label label = new Label();
+    Button button = new Button();
+
+    HBoxCell(String labelText, String buttonText) {
+      super();
+
+      label.setText(labelText);
+      label.setMaxWidth(Double.MAX_VALUE);
+      HBox.setHgrow(label, Priority.ALWAYS);
+
+      button.setText(buttonText);
+
+      this.getChildren().addAll(label, button);
+    }
+  }
+
+
   public static void main(String[] args) {
 
     launch(args);

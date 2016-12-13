@@ -2,6 +2,7 @@ package objects;
 
 import java.io.File;
 import java.util.*;
+import java.nio.file.Paths;
 
 /**
  * Created by Florian on 08.12.2016.
@@ -29,8 +30,8 @@ public class Game {
         List<Game> gamesInFolder=new ArrayList<>();
         File f=new File("Games");
         try {
-            f = new File(Game.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()+"\\Games");
-            if(!f.exists()){
+
+            if(!f.exists()||!f.isDirectory()){
                 f.mkdir();
             }
         }catch(Exception e){
