@@ -86,13 +86,30 @@ public class MainScreenController {
       }
     });
 
-    //Listener für Playlist
+    //Listener für selektierte Spieler
 
-    gamesVerfuegbareSpiele.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+    gamesSpielerEins.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 
       @Override
       public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+        playlistAktivieren();
+        if(gamesVerfuegbareSpiele.getSelectionModel().getSelectedItem()!=null&&gamesUebergeben.size()!=0&&
+            gamesSpielerZwei.getSelectionModel().getSelectedItem()!=null){
+          gamesSpielen.setDisable(false);
+        }
 
+      }
+    });
+
+    gamesSpielerZwei.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+      @Override
+      public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+        playlistAktivieren();
+        if(gamesVerfuegbareSpiele.getSelectionModel().getSelectedItem()!=null&&gamesUebergeben.size()!=0&&
+            gamesSpielerEins.getSelectionModel().getSelectedItem()!=null) {
+          gamesSpielen.setDisable(false);
+        }
 
       }
     });
@@ -137,6 +154,8 @@ public class MainScreenController {
     benutzerAuswahlZuAendern.getItems().add(newUser.getName());
     gamesSpielerEins.getItems().add(newUser.getName());
     gamesSpielerZwei.getItems().add(newUser.getName());
+    benutzerTextBoxAnlegen.clear();
+    benutzerTextBoxAendern.clear();
   }
 
   private void removeUserFromComboBoxes(String name) {
