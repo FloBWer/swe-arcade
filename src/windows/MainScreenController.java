@@ -197,7 +197,9 @@ public class MainScreenController {
     Process proc = null;
     try {
       proc = Runtime.getRuntime().exec(
-          "java -jar " + pfad + " " + "Hans" + " " + "Wurst");
+          "java -jar " + pfad + " " +
+              gamesSpielerEins.getSelectionModel().getSelectedItem() + " " +
+              gamesSpielerZwei.getSelectionModel().getSelectedItem());
     } catch (Exception e) {
       e.printStackTrace();
     }
