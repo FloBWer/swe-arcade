@@ -1,5 +1,6 @@
 package windows;
 
+import handler.StatHandler;
 import handler.UserHandler;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -48,10 +49,13 @@ public class MainScreenController {
   TextField benutzerTextBoxAendern;
   @FXML
   Button benutzerAendernSpeichern;
+  @FXML
+  TreeTableView statsTable;
 
-  List<Game> gamesUebergeben;
-  List<Game> playList;
-  UserHandler userHandler;
+  private List<Game> gamesUebergeben;
+  private List<Game> playList;
+  private UserHandler userHandler;
+  private StatHandler statHandler;
 
   public void initialize() {
     initUsers();
@@ -68,6 +72,7 @@ public class MainScreenController {
         gamesVerfuegbareSpiele.getItems().add(uebergeben.getName());
       }
     }
+    initStats();
 
     //Listener für Markierte Spiele
 
@@ -113,6 +118,13 @@ public class MainScreenController {
 
       }
     });
+
+  }
+
+  private void initStats() {
+    statHandler = ConfigFileReader.buildStatsHandler(gamesUebergeben, userHandler);
+    statHandler.updateStats();
+
 
   }
 
