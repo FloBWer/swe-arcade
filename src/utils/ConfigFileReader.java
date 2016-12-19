@@ -5,9 +5,12 @@ import com.google.gson.GsonBuilder;
 import handler.StatHandler;
 import handler.UserHandler;
 import objects.Game;
+import objects.StatRow;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Shakreo on 11.12.2016.
@@ -114,4 +117,19 @@ public class ConfigFileReader {
     return false;
   }
 
+  public static void saveStats(StatHandler statHandler) {
+    HashMap stats = statHandler.getStats();
+    Set keys = stats.keySet();
+    keys.forEach(game -> {
+      writeGameStats((StatRow)stats.get(game), (String)game);
+    });
+
+  }
+
+  public static void writeGameStats(StatRow stats, String game) {
+    try (Writer writer = new FileWriter(STATS_FOLDER + "/" + game + ".json")) {
+      Gson gson = new GsonBuilder().create();
+      gson.toJson(stats, writer);
+    } catch (Exception e) {}
+  }
 }

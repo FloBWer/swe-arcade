@@ -17,6 +17,10 @@ public class StatHandler {
     stats = new HashMap<String, StatRow>();
   }
 
+  public HashMap getStats() {
+    return stats;
+  }
+
   public void addGame(String game, String statString) {
     Gson g = new Gson();
     StatRow row = g.fromJson(statString, StatRow.class);
