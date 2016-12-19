@@ -21,9 +21,6 @@ public class ConfigFileReader {
     String usersString = readFile(USERS_FILE);
     Gson g = new Gson();
     userHandler = g.fromJson(usersString, UserHandler.class);
-
-    System.out.println(userHandler); //John
-    System.out.println(g.toJson(userHandler)); // {"name":"John"}
     return userHandler;
   }
 
