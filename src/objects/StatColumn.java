@@ -30,7 +30,7 @@ public class StatColumn {
 
   public StatEntry getUser(String userName) {
     for(StatEntry entry : statsEntries) {
-      if(entry.getUser() == userName) {
+      if(entry.getUser().equals(userName)) {
         return entry;
       }
     }

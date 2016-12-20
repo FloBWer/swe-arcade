@@ -118,10 +118,10 @@ public class ConfigFileReader {
   }
 
   public static void saveStats(StatHandler statHandler) {
-    HashMap stats = statHandler.getStats();
-    Set keys = stats.keySet();
+    HashMap<String, StatColumn> stats = statHandler.getStats();
+    Set<String> keys = stats.keySet();
     keys.forEach(game -> {
-      writeGameStats((StatColumn)stats.get(game), (String)game);
+      writeGameStats(stats.get(game), game);
     });
 
   }

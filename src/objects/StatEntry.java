@@ -25,4 +25,12 @@ public class StatEntry {
   public int getWins() {
     return wins;
   }
+
+  public void addWin() {
+    wins += 1;
+  }
+
+  public void addLose() {
+    loses += 1;
+  }
 }

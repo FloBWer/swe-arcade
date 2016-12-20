@@ -1,9 +1,7 @@
 package handler;
 
 import com.google.gson.Gson;
-import objects.StatColumn;
-import objects.StatEntry;
-import objects.User;
+import objects.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,13 +11,13 @@ import java.util.List;
  * Created by Shakreo on 18.12.2016.
  */
 public class StatHandler {
-  private HashMap stats;
+  private HashMap<String, StatColumn> stats;
 
   public StatHandler() {
-    stats = new HashMap<String, StatColumn>();
+    stats = new HashMap();
   }
 
-  public HashMap getStats() {
+  public HashMap<String, StatColumn> getStats() {
     return stats;
   }
 
@@ -37,19 +35,27 @@ public class StatHandler {
     return stats.containsKey(game);
   }
 
-  public void updateStats(String winner, String loser) {
+  public void updateStats(GameReturn gameReturn) {
+    StatColumn statColumn = (StatColumn)stats.get(gameReturn.getGame());
+    statColumn.getUser(gameReturn.getWinner()).addWin();
+    statColumn.getUser(gameReturn.getLoser()).addLose();
   }
 
   public List<String> getUserRow(String userName) {
     List<String> row = new ArrayList<>();
     row.add(userName);
-    stats.keySet().forEach(oGame -> {
-      String game = (String)oGame;
+    stats.keySet().forEach(game -> {
       StatColumn column = (StatColumn)stats.get(game);
       StatEntry userEntry = column.getUser(userName);
       row.add(String.valueOf(userEntry.getWins()));
       row.add(String.valueOf(userEntry.getLoses()));
     });
     return row;
+  }
+
+  public void updateStats(List<GameReturn> returnList) {
+    returnList.forEach(returnEntry -> {
+      updateStats(returnEntry);
+    });
   }
 }

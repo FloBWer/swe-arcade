@@ -41,7 +41,7 @@ public class Game {
     for (File gelesen : fileArray) {
       if (gelesen.getName().endsWith(".jar")) {
         String nameAktuell = gelesen.getName().substring(0, (gelesen.getName().length() - 4));
-        String pfadAktuell = gelesen.getAbsolutePath();
+        String pfadAktuell = gelesen.getPath();
         Game aktuellesSpiel = new Game(nameAktuell, pfadAktuell);
         gamesInFolder.add(aktuellesSpiel);
       }

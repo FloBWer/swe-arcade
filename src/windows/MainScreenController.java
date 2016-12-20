@@ -1,5 +1,6 @@
 package windows;
 
+import com.google.gson.Gson;
 import handler.StatHandler;
 import handler.UserHandler;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -18,9 +19,14 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import objects.Game;
+import objects.GameReturn;
 import objects.User;
 import utils.ConfigFileReader;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainScreenController {
@@ -76,11 +82,6 @@ public class MainScreenController {
       }
     }
     initStats();
-//    List<List> test;
-//    TableRow row = new TableRow<String>();
-//    row.setText("Daniel");
-//    row.setId("Daniel");
-//    statsTable.getItems().add("Daniel");
 
     //Listener für Markierte Spiele
 
@@ -265,18 +266,33 @@ public class MainScreenController {
     Process proc = null;
     try {
       proc = Runtime.getRuntime().exec(
-          "java -jar " + pfad + " " +
+          "java -jar \"" + pfad + "\" " +
               gamesSpielerEins.getSelectionModel().getSelectedItem() + " " +
               gamesSpielerZwei.getSelectionModel().getSelectedItem());
+
+      GameReturn gameReturn = handleReturn(proc.getInputStream());
+      gameReturn.setGame(selected);
+      statHandler.updateStats(gameReturn);
+      updateStatsTable();
+      ConfigFileReader.saveStats(statHandler);
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  private GameReturn handleReturn(InputStream inputStream) throws Exception{
+    BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+    String returnString = reader.readLine();
+
+    Gson g = new Gson();
+    return g.fromJson(returnString, GameReturn.class);
   }
 
   @FXML
   public void clickPlaylistStarten(ActionEvent event) {
     Process proc = null;
     String pfad="";
+    List<GameReturn> returnList = new ArrayList<>();
     for (Object test: gamesAktuellePlaylist.getItems()) {
       for (Game uebergeben : gamesUebergeben) {
         if (uebergeben.getName().equals(test)) {
@@ -286,12 +302,20 @@ public class MainScreenController {
 
       try {
         proc = Runtime.getRuntime().exec(
-            "java -jar " + pfad + " " + gamesSpielerEins.getSelectionModel().getSelectedItem() + " " + gamesSpielerZwei.getSelectionModel().getSelectedItem());
+            "java -jar \"" + pfad + "\" " + gamesSpielerEins.getSelectionModel().getSelectedItem() + " " + gamesSpielerZwei.getSelectionModel().getSelectedItem());
         proc.waitFor();
+
+        GameReturn gameReturn = handleReturn(proc.getInputStream());
+        gameReturn.setGame((String)test);
+        returnList.add(gameReturn);
+
       } catch (Exception e) {
         e.printStackTrace();
       }
     }
+    statHandler.updateStats(returnList);
+    updateStatsTable();
+    ConfigFileReader.saveStats(statHandler);
   }
 
   //Darf Playlist gestartet werdern?
