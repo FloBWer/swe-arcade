@@ -8,6 +8,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -30,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainScreenController {
-
 
   @FXML
   Button gamesSpielen;
@@ -255,6 +255,11 @@ public class MainScreenController {
 
   @FXML
   public void clickGamesSpielen(ActionEvent event) {
+    hide();
+    startGame();
+  }
+
+  private void startGame() {
     String selected = (String) gamesVerfuegbareSpiele.getSelectionModel().getSelectedItem();
     String pfad = "";
     for (Game uebergeben : gamesUebergeben) {
@@ -266,15 +271,37 @@ public class MainScreenController {
     Process proc = null;
     try {
       proc = Runtime.getRuntime().exec(
-          "java -jar \"" + pfad + "\" " +
-              gamesSpielerEins.getSelectionModel().getSelectedItem() + " " +
-              gamesSpielerZwei.getSelectionModel().getSelectedItem());
+              "java -jar \"" + pfad + "\" " +
+                      gamesSpielerEins.getSelectionModel().getSelectedItem() + " " +
+                      gamesSpielerZwei.getSelectionModel().getSelectedItem());
 
       GameReturn gameReturn = handleReturn(proc.getInputStream());
       gameReturn.setGame(selected);
       statHandler.updateStats(gameReturn);
       updateStatsTable();
       ConfigFileReader.saveStats(statHandler);
+      showRevanche();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void showRevanche() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource(
+              "revanche.fxml"));
+      Parent root = (Parent) loader.load();
+      RevancheController ctrl = loader.getController();
+      ctrl.initialize((Stage) gamesPlaylistStarten.getScene().getWindow());
+      Scene newScene = new Scene(root);
+      Stage newStage = new Stage();
+      newStage.setScene(newScene);
+      newStage.requestFocus();
+      newStage.showAndWait();
+
+      if(ctrl.getRevanche()) {
+        startGame();
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -290,6 +317,21 @@ public class MainScreenController {
 
   @FXML
   public void clickPlaylistStarten(ActionEvent event) {
+    hide();
+    startPlaylist();
+  }
+
+  public void hide() {
+    Stage stage = (Stage) gamesPlaylistStarten.getScene().getWindow();
+    stage.hide();
+  }
+
+  public void show() {
+    Stage stage = (Stage) gamesPlaylistStarten.getScene().getWindow();
+    stage.show();
+  }
+
+  private void startPlaylist() {
     Process proc = null;
     String pfad="";
     List<GameReturn> returnList = new ArrayList<>();
@@ -302,7 +344,7 @@ public class MainScreenController {
 
       try {
         proc = Runtime.getRuntime().exec(
-            "java -jar \"" + pfad + "\" " + gamesSpielerEins.getSelectionModel().getSelectedItem() + " " + gamesSpielerZwei.getSelectionModel().getSelectedItem());
+                "java -jar \"" + pfad + "\" " + gamesSpielerEins.getSelectionModel().getSelectedItem() + " " + gamesSpielerZwei.getSelectionModel().getSelectedItem());
         proc.waitFor();
 
         GameReturn gameReturn = handleReturn(proc.getInputStream());
@@ -316,6 +358,31 @@ public class MainScreenController {
     statHandler.updateStats(returnList);
     updateStatsTable();
     ConfigFileReader.saveStats(statHandler);
+    showPlaylistRevanche(returnList);
+  }
+
+  private void showPlaylistRevanche(List<GameReturn> returnList) {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource(
+              "playlistErgebnisRevanche.fxml"));
+      Parent root = (Parent) loader.load();
+      PlaylistErgebnisRevancheController ctrl = loader.getController();
+      ctrl.initialize(returnList,
+              gamesSpielerEins.getSelectionModel().getSelectedItem().toString(),
+              gamesSpielerZwei.getSelectionModel().getSelectedItem().toString(),
+              (Stage) gamesPlaylistStarten.getScene().getWindow());
+
+      Scene newScene = new Scene(root);
+      Stage newStage = new Stage();
+      newStage.setScene(newScene);
+      newStage.requestFocus();
+      newStage.showAndWait();
+      if(ctrl.getRevanche()) {
+        startPlaylist();
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   //Darf Playlist gestartet werdern?

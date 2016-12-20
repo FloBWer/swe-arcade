@@ -73,7 +73,7 @@ public class ConfigFileReader {
       for(File game : statFiles){
         if(containsGameList(game, gameList)) {
           String statString = readGameFile(game);
-          statHandler.addGame(game.getName(), statString);
+          statHandler.addGame(game.getName().substring(0, game.getName().length() - 5), statString);
         }
       }
       for(Game game : gameList){
@@ -109,7 +109,7 @@ public class ConfigFileReader {
 
   private static boolean containsGameList(File game, List<Game> gameList) {
     for(Game entry : gameList) {
-      if(entry.getName().equals(game.getName())) {
+      if((entry.getName() + ".json").equals(game.getName())) {
         return true;
       }
     }

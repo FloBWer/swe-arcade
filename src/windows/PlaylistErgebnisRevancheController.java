@@ -1,9 +1,21 @@
 package windows;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
+import objects.Game;
+import objects.GameReturn;
+import objects.User;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Florian on 06.12.2016.
@@ -15,16 +27,104 @@ public class PlaylistErgebnisRevancheController {
   Button playlistRevancheNein;
   @FXML
   TableView tabelleErgebnis;
+  private HashMap<String, Integer> gameIds;
+  private boolean revanche;
+  private Stage parent;
+
+  public void initialize(List<GameReturn> returnList, String player1, String player2, Stage parent) {
+    this.parent = parent;
+    revanche = false;
+    gameIds = new HashMap<>();
+    HashMap<String, Integer> gameIds = new HashMap<>();
+    List<String> p1 = new ArrayList<>();
+    List<String> p2 = new ArrayList<>();
+    p1.add(player1);
+    p2.add(player2);
+    tabelleErgebnis.getColumns().clear();
+    tabelleErgebnis.getItems().clear();
+    final int playerId = 0;
+    TableColumn<ObservableList<String>, String> playerColumn = new TableColumn<>("Spieler");
+    playerColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(playerId)));
+    tabelleErgebnis.getColumns().add(playerColumn);
+    int gameId = 1;
+    int columnId = 1;
+    for (GameReturn returnEntry : returnList) {
+      TableColumn<ObservableList<String>, String> gameColumn = getColumn(returnEntry.getGame());
+      if(gameColumn == null) {
+        gameIds.put(returnEntry.getGame(), columnId);
+        final int wId = columnId;
+        columnId += 1;
+        final int lId = columnId;
+        columnId += 1;
+
+        gameColumn = new TableColumn<>(returnEntry.getGame());
+        TableColumn<ObservableList<String>, String> wCol = new TableColumn<>("Wins");
+        TableColumn<ObservableList<String>, String> lCol = new TableColumn<>("Loses");
+
+        wCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(wId)));
+        lCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(lId)));
+        gameColumn.getColumns().add(wCol);
+        gameColumn.getColumns().add(lCol);
+
+        tabelleErgebnis.getColumns().add(gameColumn);
+        p1.add("0"); // wins
+        p1.add("0"); // loses
+        p2.add("0");
+        p2.add("0");
+      }
+
+      /*int wId = getWinnerColumnId(returnEntry.getGame());
+      int lId = getWinnerColumnId(returnEntry.getGame());
+      if(returnEntry.getWinner().equals(p1.get(0))) {
+        p1.set(wId, String.valueOf(Integer.parseInt(p1.get(wId)) + 1));
+        p2.set(lId, String.valueOf(Integer.parseInt(p2.get(lId)) + 1));
+      }
+      else {
+        p1.set(lId, String.valueOf(Integer.parseInt(p1.get(lId)) + 1));
+        p2.set(wId, String.valueOf(Integer.parseInt(p2.get(wId)) + 1));
+      }*/
+
+    }
+    //tabelleErgebnis.getItems().addAll(FXCollections.observableList(p1));
+    //tabelleErgebnis.getItems().addAll(FXCollections.observableList(p2));
+  }
 
   @FXML
   public void clickPlaylistRevancheJa(ActionEvent event) {
-
+    revanche = true;
+    Stage stage = (Stage) playlistRevancheJa.getScene().getWindow();
+    stage.close();
   }
 
   @FXML
   public void clickPlaylistRevancheNein(ActionEvent event) {
+    revanche = false;
+    Stage stage = (Stage) playlistRevancheNein.getScene().getWindow();
+    stage.close();
+    parent.show();
+  }
+
+  private TableColumn getColumn(String game) {
+    for(Object o : tabelleErgebnis.getColumns()) {
+      TableColumn<ObservableList<String>, String> column = (TableColumn)o;
+      if(column.getText().equals(game)) {
+        return column;
+      }
+    }
+    return null;
+  }
+
+  private int getWinnerColumnId(String game) {
+    return gameIds.get(game);
 
   }
 
+  private int getLoserColumnId(String game) {
+    return gameIds.get(game) + 1;
+  }
+
+  public boolean getRevanche() {
+    return revanche;
+  }
 }
 
