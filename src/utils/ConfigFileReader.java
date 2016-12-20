@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import handler.StatHandler;
 import handler.UserHandler;
 import objects.Game;
-import objects.StatRow;
+import objects.StatColumn;
 
 import java.io.*;
 import java.util.HashMap;
@@ -121,12 +121,12 @@ public class ConfigFileReader {
     HashMap stats = statHandler.getStats();
     Set keys = stats.keySet();
     keys.forEach(game -> {
-      writeGameStats((StatRow)stats.get(game), (String)game);
+      writeGameStats((StatColumn)stats.get(game), (String)game);
     });
 
   }
 
-  public static void writeGameStats(StatRow stats, String game) {
+  public static void writeGameStats(StatColumn stats, String game) {
     try (Writer writer = new FileWriter(STATS_FOLDER + "/" + game + ".json")) {
       Gson gson = new GsonBuilder().create();
       gson.toJson(stats, writer);

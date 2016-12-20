@@ -6,11 +6,23 @@ package objects;
 public class StatEntry {
   private String user;
   private int wins;
-  private int looses;
+  private int loses;
 
-  public StatEntry(String user, int wins, int looses) {
+  public StatEntry(String user, int wins, int loses) {
     this.user = user;
     this.wins = wins;
-    this.looses = looses;
+    this.loses = loses;
+  }
+
+  public String getUser() {
+    return user;
+  }
+
+  public int getLoses() {
+    return loses;
+  }
+
+  public int getWins() {
+    return wins;
   }
 }

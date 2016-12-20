@@ -84,7 +84,7 @@
                 </Tab>
                 <Tab text="Statistik">
                     <content>
-                        <TreeTableView prefHeight="318.0" prefWidth="559.0" />
+                        <TableView fx:id="statsTable" prefHeight="318.0" prefWidth="559.0" />
                     </content>
                 </Tab>
                 <Tab text="Benutzer">

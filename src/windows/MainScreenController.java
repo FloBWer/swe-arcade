@@ -2,8 +2,11 @@ package windows;
 
 import handler.StatHandler;
 import handler.UserHandler;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -50,7 +53,7 @@ public class MainScreenController {
   @FXML
   Button benutzerAendernSpeichern;
   @FXML
-  TreeTableView statsTable;
+  TableView<ObservableList<String>> statsTable;
 
   private List<Game> gamesUebergeben;
   private List<Game> playList;
@@ -73,6 +76,11 @@ public class MainScreenController {
       }
     }
     initStats();
+//    List<List> test;
+//    TableRow row = new TableRow<String>();
+//    row.setText("Daniel");
+//    row.setId("Daniel");
+//    statsTable.getItems().add("Daniel");
 
     //Listener für Markierte Spiele
 
@@ -121,11 +129,40 @@ public class MainScreenController {
 
   }
 
+  private void updateStatsTable() {
+    statsTable.getColumns().clear();
+    statsTable.getItems().clear();
+    final int playerId = 0;
+    TableColumn<ObservableList<String>, String> playerColumn = new TableColumn<>("Spieler");
+    playerColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(playerId)));
+    statsTable.getColumns().add(playerColumn);
+    int columnId = 1;
+    for (Game game : gamesUebergeben) {
+      final int wId = columnId;
+      columnId += 1;
+      final int lId = columnId;
+      columnId += 1;
+
+      TableColumn<ObservableList<String>, String> gameColumn = new TableColumn<>(game.getName());
+      TableColumn<ObservableList<String>, String> wCol = new TableColumn<>("Wins");
+      TableColumn<ObservableList<String>, String> lCol = new TableColumn<>("Loses");
+
+      wCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(wId)));
+      lCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(lId)));
+      gameColumn.getColumns().add(wCol);
+      gameColumn.getColumns().add(lCol);
+
+      statsTable.getColumns().add(gameColumn);
+    }
+    // add data
+    for(User user : userHandler.getUsers()) {
+      statsTable.getItems().addAll(FXCollections.observableList(statHandler.getUserRow(user.getName())));
+    }
+  }
+
   private void initStats() {
     statHandler = ConfigFileReader.buildStatsHandler(gamesUebergeben, userHandler);
-    statHandler.updateStats();
-
-
+    updateStatsTable();
   }
 
   private void initUsers() {
