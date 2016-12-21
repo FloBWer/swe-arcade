@@ -12,7 +12,7 @@
                 onAction="#clickPlaylistRevancheJa" prefHeight="31.0" prefWidth="84.0" text="Ja"/>
         <Button fx:id="playlistRevancheNein" layoutX="105.0" layoutY="183.0" mnemonicParsing="false"
                 onAction="#clickPlaylistRevancheNein" prefHeight="31.0" prefWidth="84.0" text="Nein"/>
-        <TableView fx:id="tabelleErgebnis" layoutX="9.0" layoutY="47.0" prefHeight="79.0" prefWidth="401.0"/>
+        <TableView fx:id="tabelleErgebnis" layoutX="9.0" layoutY="47.0" prefHeight="110.0" prefWidth="401.0"/>
         <Label layoutX="14.0" layoutY="14.0" text="Die Playlist ist beendet, das Ergebnis lautet:"/>
     </children>
 </AnchorPane>

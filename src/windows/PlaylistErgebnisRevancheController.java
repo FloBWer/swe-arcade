@@ -26,7 +26,7 @@ public class PlaylistErgebnisRevancheController {
   @FXML
   Button playlistRevancheNein;
   @FXML
-  TableView tabelleErgebnis;
+  TableView<ObservableList<String>> tabelleErgebnis;
   private HashMap<String, Integer> gameIds;
   private boolean revanche;
   private Stage parent;
@@ -73,8 +73,8 @@ public class PlaylistErgebnisRevancheController {
         p2.add("0");
       }
 
-      /*int wId = getWinnerColumnId(returnEntry.getGame());
-      int lId = getWinnerColumnId(returnEntry.getGame());
+      int wId = getWinnerColumnId(returnEntry.getGame(), gameIds);
+      int lId = getLoserColumnId(returnEntry.getGame(), gameIds);
       if(returnEntry.getWinner().equals(p1.get(0))) {
         p1.set(wId, String.valueOf(Integer.parseInt(p1.get(wId)) + 1));
         p2.set(lId, String.valueOf(Integer.parseInt(p2.get(lId)) + 1));
@@ -82,11 +82,11 @@ public class PlaylistErgebnisRevancheController {
       else {
         p1.set(lId, String.valueOf(Integer.parseInt(p1.get(lId)) + 1));
         p2.set(wId, String.valueOf(Integer.parseInt(p2.get(wId)) + 1));
-      }*/
+      }
 
     }
-    //tabelleErgebnis.getItems().addAll(FXCollections.observableList(p1));
-    //tabelleErgebnis.getItems().addAll(FXCollections.observableList(p2));
+    tabelleErgebnis.getItems().addAll(FXCollections.observableList(p1));
+    tabelleErgebnis.getItems().addAll(FXCollections.observableList(p2));
   }
 
   @FXML
@@ -114,12 +114,13 @@ public class PlaylistErgebnisRevancheController {
     return null;
   }
 
-  private int getWinnerColumnId(String game) {
+  private int getWinnerColumnId(String game, HashMap<String, Integer> gameIds) {
+    System.out.println(gameIds.toString());
     return gameIds.get(game);
 
   }
 
-  private int getLoserColumnId(String game) {
+  private int getLoserColumnId(String game, HashMap<String, Integer> gameIds) {
     return gameIds.get(game) + 1;
   }
 
