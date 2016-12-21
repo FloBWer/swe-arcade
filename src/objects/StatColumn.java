@@ -36,4 +36,17 @@ public class StatColumn {
     }
     return null;
   }
+
+  public void removeUser(String name) {
+    for(StatEntry entry : statsEntries) {
+      if(entry.getUser().equals(name)) {
+        statsEntries.remove(entry);
+        return;
+      }
+    }
+  }
+
+  public void addUser(String name) {
+    statsEntries.add(new StatEntry(name, 0, 0));
+  }
 }

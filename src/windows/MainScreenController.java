@@ -179,6 +179,9 @@ public class MainScreenController {
     User newUser = userHandler.newUser(benutzerTextBoxAnlegen.getText());
     if(newUser != null) {
       addUserToComboBoxes(newUser);
+      statHandler.addUser(newUser.getName());
+      updateStatsTable();
+      ConfigFileReader.saveStats(statHandler);
     }
     else {
       showBenutzerBereitsVorhanden();
@@ -219,6 +222,9 @@ public class MainScreenController {
     String name = benutzerAuswahlZuAendern.getSelectionModel().getSelectedItem().toString();
     userHandler.removeUser(name);
     removeUserFromComboBoxes(name);
+    statHandler.removeUser(name);
+    updateStatsTable();
+    ConfigFileReader.saveStats(statHandler);
   }
 
   @FXML
@@ -229,6 +235,9 @@ public class MainScreenController {
     if(newUser != null) {
       removeUserFromComboBoxes(name);
       addUserToComboBoxes(newUser);
+      statHandler.renameUser(name, newName);
+      updateStatsTable();
+      ConfigFileReader.saveStats(statHandler);
     }
     else {
       showBenutzerBereitsVorhanden();

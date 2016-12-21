@@ -53,9 +53,31 @@ public class StatHandler {
     return row;
   }
 
+  public void renameUser(String userName, String newName) {
+    stats.keySet().forEach(game -> {
+      StatColumn column = (StatColumn)stats.get(game);
+      StatEntry userEntry = column.getUser(userName);
+      userEntry.setUser(newName);
+    });
+  }
+
   public void updateStats(List<GameReturn> returnList) {
     returnList.forEach(returnEntry -> {
       updateStats(returnEntry);
+    });
+  }
+
+  public void removeUser(String name) {
+    stats.keySet().forEach(game -> {
+      StatColumn column = (StatColumn)stats.get(game);
+      column.removeUser(name);
+    });
+  }
+
+  public void addUser(String name) {
+    stats.keySet().forEach(game -> {
+      StatColumn column = (StatColumn)stats.get(game);
+      column.addUser(name);
     });
   }
 }

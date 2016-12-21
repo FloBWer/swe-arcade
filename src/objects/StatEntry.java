@@ -33,4 +33,8 @@ public class StatEntry {
   public void addLose() {
     loses += 1;
   }
+
+  public void setUser(String user) {
+    this.user = user;
+  }
 }
