@@ -30,6 +30,7 @@ public class UserHandler {
   //Methods
 
   public User newUser(String name) {
+    name = limitUserName(name);
     if(getUser(name) == null) {
       User newUser = new User(name);
       users.add(newUser);
@@ -37,6 +38,15 @@ public class UserHandler {
       return newUser;
     }
     return null;
+  }
+
+  private String limitUserName(String name) {
+    String limitedName = name;
+    limitedName = limitedName.replaceAll(" ", "");
+    if(limitedName.length() > 10) {
+      limitedName = limitedName.substring(0, 10);
+    }
+    return limitedName;
   }
 
   private void saveUsers() {
