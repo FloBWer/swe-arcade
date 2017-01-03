@@ -107,10 +107,7 @@ public class MainScreenController {
       @Override
       public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
         playlistAktivieren();
-        if(gamesVerfuegbareSpiele.getSelectionModel().getSelectedItem()!=null&&gamesUebergeben.size()!=0&&
-            gamesSpielerZwei.getSelectionModel().getSelectedItem()!=null){
-          gamesSpielen.setDisable(false);
-        }
+        bedingungenSpielstartPruefen();
 
       }
     });
@@ -120,15 +117,42 @@ public class MainScreenController {
       @Override
       public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
         playlistAktivieren();
-        if(gamesVerfuegbareSpiele.getSelectionModel().getSelectedItem()!=null&&gamesUebergeben.size()!=0&&
-            gamesSpielerEins.getSelectionModel().getSelectedItem()!=null) {
-          gamesSpielen.setDisable(false);
-        }
+        bedingungenSpielstartPruefen();
 
       }
     });
 
   }
+
+  /**<h3>Name: bedingungenSpielstartPruefen</h3>
+   * <p>Beschreibung:Methode überprüft ob ein Spiel gestartet werden darf und aktiviert oder deaktiviert dann
+   * den entsprechenden Button und liefert true oder false zurück.
+   * Überprüft wird:
+   * <ul>
+   * <li>Ob ein richtiges Spiel angewählt ist</li>
+   * <li>Ob Spieler Eins und Zwei ausgewählt sind</li>
+   * <li>Spieler Eins und Spieler Zwei nicht identisch sind</li>
+   * </ul>
+   * </p>
+   *<p>Erstellt von Florian</p>
+   */
+  boolean bedingungenSpielstartPruefen(){
+    if(gamesVerfuegbareSpiele.getSelectionModel().getSelectedItem()!=null&&gamesUebergeben.size()!=0) {
+      if( gamesSpielerEins.getSelectionModel().getSelectedItem()!=null&&
+              gamesSpielerZwei.getSelectionModel().getSelectedItem()!=null) {
+        Object spielerEins=gamesSpielerEins.getSelectionModel().getSelectedItem();
+        Object spielerZwei=gamesSpielerZwei.getSelectionModel().getSelectedItem();
+        if(!spielerEins.equals(spielerZwei)){
+          gamesSpielen.setDisable(false);
+          return true;
+        }else{
+          gamesSpielen.setDisable(true);
+        }
+      }
+    }
+    return false;
+  }
+
 
   private void updateStatsTable() {
     statsTable.getColumns().clear();
@@ -398,8 +422,7 @@ public class MainScreenController {
 
   public void playlistAktivieren(){
     if (gamesAktuellePlaylist.getItems().size() != 0
-        &&gamesSpielerEins.getSelectionModel().getSelectedItem()!=null
-        &&gamesSpielerZwei.getSelectionModel().getSelectedItem()!=null) {
+        &&bedingungenSpielstartPruefen()) {
       gamesPlaylistStarten.setDisable(false);
     }else{
       gamesPlaylistStarten.setDisable(true);
