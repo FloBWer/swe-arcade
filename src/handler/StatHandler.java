@@ -2,6 +2,7 @@ package handler;
 
 import com.google.gson.Gson;
 import objects.*;
+import utils.ConfigFileReader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,6 +48,11 @@ public class StatHandler {
     stats.keySet().forEach(game -> {
       StatColumn column = (StatColumn)stats.get(game);
       StatEntry userEntry = column.getUser(userName);
+      if(userEntry == null) {
+        addUser(userName);
+        ConfigFileReader.saveStats(this);
+        userEntry = column.getUser(userName);
+      }
       row.add(String.valueOf(userEntry.getWins()));
       row.add(String.valueOf(userEntry.getLoses()));
     });

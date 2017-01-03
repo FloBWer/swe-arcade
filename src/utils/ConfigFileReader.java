@@ -59,7 +59,7 @@ public class ConfigFileReader {
   }
 
   public static StatHandler buildStatsHandler(List<Game> gameList, UserHandler userHandler) {
-    StatHandler statHandler = new StatHandler();//ConfigFileReader.buildStatsHandler(gameList);
+    StatHandler statHandler = new StatHandler();
     File statFolder = new File(STATS_FOLDER);
     if(!statFolder.exists()) {
       statFolder.mkdir();
@@ -82,7 +82,6 @@ public class ConfigFileReader {
         }
       }
     }
-
     return statHandler;
   }
 
