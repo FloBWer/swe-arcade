@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import objects.Game;
@@ -66,6 +67,14 @@ public class MainScreenController {
   private UserHandler userHandler;
   private StatHandler statHandler;
 
+  /**<h3>Name: initialize</h3>
+   * <p>
+   *     Initialisiert die Anzeige der Fenster samt verfügbarer Spiele,
+   *     Statistiken und User.
+   *     Enthält listener um verfügbare Buttons bei Erfüllung aller Bedingungen zu aktivieren.
+   * </p>
+   *<p>Erstellt von Daniel und Florian</p>
+   */
   public void initialize() {
     initUsers();
     gamesUebergeben = Game.readGamesFolder();
@@ -267,6 +276,13 @@ public class MainScreenController {
       showBenutzerBereitsVorhanden();
     }
   }
+  /**<h3>Name: clickZurPlaylistHinzufuegen</h3>
+   * <p>
+   *     Beschreibung: Bei Klick auf Button "zur Playlist hinzufügen" wird das angewählte Spiel zur Playlist
+   *     hinzugefügt und in der Anzeige "Playlist" ein Eintrag mit Button zum Löschen hinzugefügt (CellFactory).
+   * </p>
+   *<p>Erstellt von Florian</p>
+   */
 
   @FXML
   public void clickZurPlaylistHinzufuegen(ActionEvent event) {
@@ -285,13 +301,26 @@ public class MainScreenController {
       }
     }
   }
+  /**<h3>Name: clickGamesSpielen</h3>
+   * <p>
+   *     Startet Spiel über startGame Methode
+   * </p>
+   *<p>Erstellt von Florian</p>
+   */
 
   @FXML
   public void clickGamesSpielen(ActionEvent event) {
-    hide();
+
     startGame();
   }
 
+  /**<h3>Name: clickGamesSpielen</h3>
+   * <p>
+   *     Öffnet die jar des markierten Spiels, nach beendigung werden die Statistiken aktuallisiert und eine
+   *     Revancheabfrage angezeigt und die Methode bei zustimmung nochmal aufgerufen.
+   * </p>
+   *<p>Erstellt von Florian</p>
+   */
   private void startGame() {
     String selected = (String) gamesVerfuegbareSpiele.getSelectionModel().getSelectedItem();
     String pfad = "";
@@ -309,14 +338,17 @@ public class MainScreenController {
                       gamesSpielerZwei.getSelectionModel().getSelectedItem());
 
       GameReturn gameReturn = handleReturn(proc.getInputStream());
-      gameReturn.setGame(selected);
-      statHandler.updateStats(gameReturn);
-      updateStatsTable();
-      ConfigFileReader.saveStats(statHandler);
-      showRevanche();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+      if (gameReturn != null) {
+        gameReturn.setGame(selected);
+        statHandler.updateStats(gameReturn);
+        updateStatsTable();
+        ConfigFileReader.saveStats(statHandler);
+        showRevanche();
+      }
+      } catch(Exception e){
+        e.printStackTrace();
+      }
+
   }
 
   private void showRevanche() {
@@ -329,6 +361,7 @@ public class MainScreenController {
       Scene newScene = new Scene(root);
       Stage newStage = new Stage();
       newStage.setScene(newScene);
+      newStage.initModality(Modality.APPLICATION_MODAL);
       newStage.requestFocus();
       newStage.showAndWait();
 
