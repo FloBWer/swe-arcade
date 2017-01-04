@@ -414,9 +414,10 @@ public class MainScreenController {
         proc.waitFor();
 
         GameReturn gameReturn = handleReturn(proc.getInputStream());
-        gameReturn.setGame((String)test);
-        returnList.add(gameReturn);
-
+        if(gameReturn!=null) {
+            gameReturn.setGame((String) test);
+            returnList.add(gameReturn);
+        }
       } catch (Exception e) {
         e.printStackTrace();
       }
