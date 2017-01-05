@@ -6,10 +6,24 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
+/**<h2>Klasse</h2>
+ * <h3>Name: Main</h3>
+ * <p>
+ *     Beschreibung: Aufruf des Hauptprogramms
+ * </p>
+ *<p>Erstellt von Dennis</p>
+ */
 
 public class Main extends Application {
 
+
+  /**
+   *  <h3>Name: start</h3>
+   * <p>
+   *     Beschreibung: Anzeige des MainScreens
+   * </p>
+   *<p>Erstellt von Dennis</p>
+   */
   @Override
   public void start(Stage primaryStage) throws Exception {
     Parent root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
