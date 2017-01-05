@@ -17,8 +17,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by Florian on 06.12.2016.
+/**<h2>Klasse</h2>
+ * <h3>Name: PlaylistErgebnisRevancheController</h3>
+ * <p>
+ *     Beschreibung: Controller für Fenster welches Ergebnis der Playlist anzeigt
+ *     und die Möglichkeit bietet eine Revanche der Playlist zu spielen.
+ * </p>
+ *<p>Erstellt von Daniel und Florian</p>
  */
 public class PlaylistErgebnisRevancheController {
   @FXML

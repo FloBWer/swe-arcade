@@ -22,7 +22,7 @@ public class Main extends Application {
    * <p>
    *     Beschreibung: Anzeige des MainScreens
    * </p>
-   *<p>Erstellt von Dennis</p>
+   *<p>Erstellt von Florian</p>
    */
   @Override
   public void start(Stage primaryStage) throws Exception {

@@ -5,8 +5,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-/**
- * Created by Florian on 06.12.2016.
+/**<h2>Klasse</h2>
+ * <h3>Name:Revanche Controller </h3>
+ * <p>
+ *     Beschreibung: Controller der Revanche Abfrage
+ * </p>
+ *<p>Erstellt von Daniel und Florian</p>
  */
 public class RevancheController {
   @FXML
