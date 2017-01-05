@@ -4,8 +4,13 @@ import java.io.File;
 import java.util.*;
 import java.nio.file.Paths;
 
-/**
- * Created by Florian on 08.12.2016.
+/**<h2>Klasse</h2>
+ * <h3>Name: Game</h3>
+ * <p>
+ *     Beschreibung: Klasse für Spiele mit Attributen  name und pfad
+ *
+ * </p>
+ *<p>Erstellt von Florian</p>
  */
 public class Game {
   //Attrbute
@@ -25,7 +30,16 @@ public class Game {
   public String getPfad() {
     return this.pfad;
   }
-
+  /**<h2>Klasse</h2>
+   * <h3>Name: readGamesFolder</h3>
+   * <p>
+   *     Beschreibung: Statische Methode zum lesen der Spiele aus dem Games ordner,
+   *     wenn es sich um passende jar dateien handelt werden Games Objekte für diese Dateien angelegt
+   *     und alle Ojekte als Liste zurückgegeben
+   *
+   * </p>
+   *<p>Erstellt von Dennis</p>
+   */
   public static List<Game> readGamesFolder() {
     List<Game> gamesInFolder = new ArrayList<>();
     File f = new File("Games");
