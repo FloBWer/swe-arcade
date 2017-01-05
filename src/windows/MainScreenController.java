@@ -30,6 +30,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+/**<h2>Klasse</h2>
+ * <h3>Name: MainScreenController</h3>
+ * <p>
+ *     Beschriebung: Klasse zur Kontrolle des Hauptfensters, mit den drei Reitern:
+ *     <ul>
+ *         <li>Games</li>
+ *         <li>Statistik</li>
+ *         <li>Benutzer</li>
+ *     </ul>
+ * </p>
+ *<p>Erstellt von Daniel und Florian</p>
+ */
 
 public class MainScreenController {
 
@@ -303,7 +315,7 @@ public class MainScreenController {
   }
   /**<h3>Name: clickGamesSpielen</h3>
    * <p>
-   *     Startet Spiel über startGame Methode
+   *     Berschreibung: Startet Spiel über startGame Methode
    * </p>
    *<p>Erstellt von Florian</p>
    */
@@ -314,12 +326,12 @@ public class MainScreenController {
     startGame();
   }
 
-  /**<h3>Name: clickGamesSpielen</h3>
+  /**<h3>Name: startGame</h3>
    * <p>
-   *     Öffnet die jar des markierten Spiels, nach beendigung werden die Statistiken aktuallisiert und eine
-   *     Revancheabfrage angezeigt und die Methode bei zustimmung nochmal aufgerufen.
+   *     Beschreibung: Öffnet die jar des markierten Spiels, nach beendigung werden die Statistiken aktuallisiert und eine
+   *     Revancheabfrage angezeigt.
    * </p>
-   *<p>Erstellt von Florian</p>
+   *<p>Erstellt von Florian und Daniel</p>
    */
   private void startGame() {
     String selected = (String) gamesVerfuegbareSpiele.getSelectionModel().getSelectedItem();
@@ -380,10 +392,15 @@ public class MainScreenController {
     Gson g = new Gson();
     return g.fromJson(returnString, GameReturn.class);
   }
-
+  /**<h3>Name: clickPlaylistStarten</h3>
+   * <p>
+   *     Startet Playlist über startPlaylist Methode beim Klick auf
+   *     Playlist starten Button
+   * </p>
+   *<p>Erstellt von Florian</p>
+   */
   @FXML
   public void clickPlaylistStarten(ActionEvent event) {
-    hide();
     startPlaylist();
   }
 
@@ -397,7 +414,14 @@ public class MainScreenController {
     stage.show();
   }
 
-  private void startPlaylist() {
+  /**<h3>Name: startPlaylist</h3>
+   * <p>
+   *     Beschreibung: Startet hintereinander die in der Playlist hinterlegten Spiele und Speichert die Ergebnisse
+   *     in den Statistiken, nach Abschluss wird ein Fenster mit einer Revancheanfrage angezeigt.
+   * </p>
+   *<p>Erstellt von Daniel und Florian</p>
+   */
+    private void startPlaylist() {
     Process proc = null;
     String pfad="";
     List<GameReturn> returnList = new ArrayList<>();
@@ -452,7 +476,12 @@ public class MainScreenController {
     }
   }
 
-  //Darf Playlist gestartet werdern?
+  /**<h3>Name: playlistAktivieren</h3>
+   * <p>
+   *     Beschreibung: Überprüft ob der Playlist starten Button aktiviert werden darf
+   * </p>
+   *<p>Erstellt von Florian</p>
+   */
 
   public void playlistAktivieren(){
     if (gamesAktuellePlaylist.getItems().size() != 0
@@ -464,7 +493,14 @@ public class MainScreenController {
   }
 
 
-  //Button zum löschen der Spiele aus der Playlist
+  /**<h2>Klasse</h2>
+   * <h3>Name: ButtonListCell</h3>
+   * <p>
+   *     Beschreibung: Unterklasse mit nur einer Methode, Button zum Löschen wird in den
+   *     Elementen der Playlist hinzugefügt.
+   * </p>
+   *<p>Erstellt von Florian</p>
+   */
 
   class ButtonListCell extends ListCell<String> {
 
