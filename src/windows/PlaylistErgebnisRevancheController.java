@@ -49,10 +49,35 @@ public class PlaylistErgebnisRevancheController {
     tabelleErgebnis.getItems().clear();
     final int playerId = 0;
     TableColumn<ObservableList<String>, String> playerColumn = new TableColumn<>("Spieler");
+    //Test für Gesamt
+    int winPEins=0;
+    int winPZwei=0;
+    int losPEins=0;
+    int losPZwei=0;
+    p1.add("");
+    p1.add("");
+    p2.add("");
+    p2.add("");
+    TableColumn<ObservableList<String>, String> gesamtColumn = new TableColumn<>("Gesamt");
+    TableColumn<ObservableList<String>, String> winGes = new TableColumn<>("Wins");
+    TableColumn<ObservableList<String>, String> losGes = new TableColumn<>("Loses");
+    gesamtColumn.getColumns().add(winGes);
+    gesamtColumn.getColumns().add(losGes);
+    //
+
     playerColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(playerId)));
     tabelleErgebnis.getColumns().add(playerColumn);
+    //Test für Gesamt
+    tabelleErgebnis.getColumns().add(gesamtColumn);
+
     int gameId = 1;
     int columnId = 1;
+    final int wgesId=columnId;
+    columnId++;
+    final int lgesId=columnId;
+    columnId++;
+    winGes.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(wgesId)));
+    //
     for (GameReturn returnEntry : returnList) {
       TableColumn<ObservableList<String>, String> gameColumn = getColumn(returnEntry.getGame());
       if(gameColumn == null) {
@@ -82,16 +107,29 @@ public class PlaylistErgebnisRevancheController {
       int lId = getLoserColumnId(returnEntry.getGame(), gameIds);
       if(returnEntry.getWinner().equals(p1.get(0))) {
         p1.set(wId, String.valueOf(Integer.parseInt(p1.get(wId)) + 1));
+        winPEins+=1;
         p2.set(lId, String.valueOf(Integer.parseInt(p2.get(lId)) + 1));
+        losPZwei+=1;
       }
       else {
         p1.set(lId, String.valueOf(Integer.parseInt(p1.get(lId)) + 1));
+        winPZwei+=1;
         p2.set(wId, String.valueOf(Integer.parseInt(p2.get(wId)) + 1));
+        losPEins+=1;
       }
 
     }
     tabelleErgebnis.getItems().addAll(FXCollections.observableList(p1));
     tabelleErgebnis.getItems().addAll(FXCollections.observableList(p2));
+    p1.set(1,""+winPEins);
+    p1.set(2,""+losPEins);
+    p2.set(1,""+winPZwei);
+    p2.set(2,""+losPZwei);
+
+    winGes.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(wgesId)));
+    losGes.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(lgesId)));
+
+
   }
 
   @FXML
