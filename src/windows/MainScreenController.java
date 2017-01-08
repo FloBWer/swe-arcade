@@ -477,6 +477,7 @@ public class MainScreenController {
       Stage newStage = new Stage();
       newStage.setScene(newScene);
       newStage.requestFocus();
+      newStage.initModality(Modality.APPLICATION_MODAL);
       newStage.showAndWait();
       if(ctrl.getRevanche()) {
         startPlaylist();
