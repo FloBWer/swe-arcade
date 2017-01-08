@@ -179,10 +179,20 @@ public class MainScreenController {
     statsTable.getColumns().clear();
     statsTable.getItems().clear();
     final int playerId = 0;
+    final int gesWins=1;
+    final int gesLoses=2;
     TableColumn<ObservableList<String>, String> playerColumn = new TableColumn<>("Spieler");
+    TableColumn<ObservableList<String>, String> gesamtColumn = new TableColumn<>("Gesamt");
+    TableColumn<ObservableList<String>, String> winGes = new TableColumn<>("Wins");
+    TableColumn<ObservableList<String>, String> losGes = new TableColumn<>("Loses");
+    gesamtColumn.getColumns().add(winGes);
+    gesamtColumn.getColumns().add(losGes);
     playerColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(playerId)));
     statsTable.getColumns().add(playerColumn);
-    int columnId = 1;
+    statsTable.getColumns().add(gesamtColumn);
+    winGes.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(gesWins)));
+    losGes.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(gesLoses)));
+    int columnId = 3;
     for (Game game : gamesUebergeben) {
       final int wId = columnId;
       columnId += 1;
