@@ -45,6 +45,8 @@ public class StatHandler {
   public List<String> getUserRow(String userName) {
     List<String> row = new ArrayList<>();
     row.add(userName);
+    row.add("0");      //Gesamt wins
+    row.add("0");      //Gesamt loses
     stats.keySet().forEach(game -> {
       StatColumn column = (StatColumn)stats.get(game);
       StatEntry userEntry = column.getUser(userName);
@@ -54,7 +56,9 @@ public class StatHandler {
         userEntry = column.getUser(userName);
       }
       row.add(String.valueOf(userEntry.getWins()));
+      row.set(1,String.valueOf(Integer.parseInt(row.get(1))+userEntry.getWins()));
       row.add(String.valueOf(userEntry.getLoses()));
+      row.set(2,String.valueOf(Integer.parseInt(row.get(2))+userEntry.getLoses()));
     });
     return row;
   }
