@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
@@ -32,9 +33,13 @@ public class PlaylistErgebnisRevancheController {
   Button playlistRevancheNein;
   @FXML
   TableView<ObservableList<String>> tabelleErgebnis;
+  @FXML
+  Label glueckwunschLabel;
   private HashMap<String, Integer> gameIds;
   private boolean revanche;
   private Stage parent;
+
+
 
   public void initialize(List<GameReturn> returnList, String player1, String player2, Stage parent) {
     this.parent = parent;
@@ -129,8 +134,32 @@ public class PlaylistErgebnisRevancheController {
     winGes.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(wgesId)));
     losGes.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(lgesId)));
 
+  if(winPEins>winPZwei)
+  {
+    setGlueckwunschLabel(player1);
+  }else if(winPEins<winPZwei){
+    setGlueckwunschLabel(player2);
+  }else{
+    setGlueckwunschLabel();
+  }
 
   }
+
+  /**<h3>Name: setGlueckwunschLabel</h3>
+   * <p>
+   *     Beschreibung: Setzt Text des Glückwunsch-Labels je nach übergebenem Sieger
+   *     oder unentschieden ohne Parameter.
+   * </p>
+   *<p>Erstellt von Daniel und Florian</p>
+   */
+  void setGlueckwunschLabel(String name){
+    glueckwunschLabel.setText("Glückwunsch an "+name+", ist eine Revanche gewünscht?");
+  }
+  void setGlueckwunschLabel(){
+    glueckwunschLabel.setText("Unentschieden, ist eine Revanche gewünscht?");
+
+  }
+
 
   @FXML
   public void clickPlaylistRevancheJa(ActionEvent event) {
