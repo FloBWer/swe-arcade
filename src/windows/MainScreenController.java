@@ -183,15 +183,15 @@ public class MainScreenController {
     final int gesLoses=2;
     TableColumn<ObservableList<String>, String> playerColumn = new TableColumn<>("Spieler");
     TableColumn<ObservableList<String>, String> gesamtColumn = new TableColumn<>("Gesamt");
-    TableColumn<ObservableList<String>, String> winGes = new TableColumn<>("Wins");
-    TableColumn<ObservableList<String>, String> losGes = new TableColumn<>("Loses");
+    TableColumn<ObservableList<String>, Integer> winGes = new TableColumn<>("Wins");
+    TableColumn<ObservableList<String>, Integer> losGes = new TableColumn<>("Loses");
     gesamtColumn.getColumns().add(winGes);
     gesamtColumn.getColumns().add(losGes);
     playerColumn.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(playerId)));
     statsTable.getColumns().add(playerColumn);
     statsTable.getColumns().add(gesamtColumn);
-    winGes.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(gesWins)));
-    losGes.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(gesLoses)));
+    winGes.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(Integer.parseInt(param.getValue().get(gesWins))));
+    losGes.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(Integer.parseInt(param.getValue().get(gesLoses))));
     int columnId = 3;
     for (Game game : gamesUebergeben) {
       final int wId = columnId;
@@ -200,11 +200,11 @@ public class MainScreenController {
       columnId += 1;
 
       TableColumn<ObservableList<String>, String> gameColumn = new TableColumn<>(game.getName());
-      TableColumn<ObservableList<String>, String> wCol = new TableColumn<>("Wins");
-      TableColumn<ObservableList<String>, String> lCol = new TableColumn<>("Loses");
+      TableColumn<ObservableList<String>, Integer> wCol = new TableColumn<>("Wins");
+      TableColumn<ObservableList<String>, Integer> lCol = new TableColumn<>("Loses");
 
-      wCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(wId)));
-      lCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue().get(lId)));
+      wCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(Integer.parseInt(param.getValue().get(wId))));
+      lCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(Integer.parseInt(param.getValue().get(lId))));
       gameColumn.getColumns().add(wCol);
       gameColumn.getColumns().add(lCol);
 
@@ -214,6 +214,9 @@ public class MainScreenController {
     for(User user : userHandler.getUsers()) {
       statsTable.getItems().addAll(FXCollections.observableList(statHandler.getUserRow(user.getName())));
     }
+    winGes.setSortType(TableColumn.SortType.DESCENDING);
+    statsTable.getSortOrder().add(winGes);
+
   }
 
   private void initStats() {
