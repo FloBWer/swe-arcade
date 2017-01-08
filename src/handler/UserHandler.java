@@ -3,6 +3,7 @@ package handler;
 import objects.User;
 import utils.ConfigFileReader;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,6 +12,10 @@ import java.util.List;
 public class UserHandler {
 
   private List<User> users;
+
+  public UserHandler() {
+    users = new ArrayList();
+  }
 
   //Getter
 

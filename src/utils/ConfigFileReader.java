@@ -20,10 +20,13 @@ public class ConfigFileReader {
   private static String STATS_FOLDER = "stats";
 
   public static UserHandler buildUserHandler() {
-    UserHandler userHandler = new UserHandler();
+    UserHandler userHandler;
     String usersString = readFile(USERS_FILE);
     Gson g = new Gson();
     userHandler = g.fromJson(usersString, UserHandler.class);
+    if(userHandler == null) {
+      userHandler = new UserHandler();
+    }
     return userHandler;
   }
 
