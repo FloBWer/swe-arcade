@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.*?>
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="windows.MainScreenController">
     <children>
         <TabPane layoutY="1.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
@@ -11,57 +14,57 @@
                     <content>
                         <SplitPane dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0">
                             <items>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                <AnchorPane minHeight="0.0" minWidth="175.0" prefHeight="160.0" prefWidth="100.0">
                                     <children>
                                         <ListView fx:id="gamesVerfuegbareSpiele" layoutY="31.0" pickOnBounds="false" prefHeight="280.0" prefWidth="175.0">
-                                 <cursor>
-                                    <Cursor fx:constant="DEFAULT" />
-                                 </cursor></ListView>
+                                            <cursor>
+                                                <Cursor fx:constant="DEFAULT" />
+                                            </cursor></ListView>
                                         <Label layoutX="12.0" layoutY="4.0" text="Verfügbare Spiele:" />
                                     </children>
                                 </AnchorPane>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                <AnchorPane minHeight="0.0" minWidth="425.0" prefHeight="160.0" prefWidth="100.0">
                                     <children>
                                         <SplitPane layoutX="-2.0" orientation="VERTICAL" prefHeight="363.0" prefWidth="417.0">
                                             <items>
                                                 <SplitPane dividerPositions="0.5927710843373494" prefHeight="160.0" prefWidth="200.0">
                                                     <items>
-                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                        <AnchorPane minHeight="0.0" minWidth="241.8" prefHeight="160.0" prefWidth="100.0">
                                                             <children>
                                                                 <SplitPane dividerPositions="0.65" orientation="VERTICAL" prefHeight="362.0" prefWidth="242.0">
                                                                     <items>
-                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="194.0" prefWidth="240.0">
+                                                                        <AnchorPane minHeight="215.5" minWidth="0.0" prefHeight="194.0" prefWidth="240.0">
                                                                             <children>
                                                                                 <Button fx:id="gamesSpielen" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#clickGamesSpielen" prefHeight="31.0" prefWidth="107.0" text="Spielen" />
                                                                                 <Button fx:id="gamesZurPlaylistHinzufügen" layoutX="16.0" layoutY="54.0" mnemonicParsing="false" onAction="#clickZurPlaylistHinzufuegen" text="zur  Playlist hinzufügen" />
                                                                             </children>
-                                                         <cursor>
-                                                            <Cursor fx:constant="DEFAULT" />
-                                                         </cursor>
+                                                                            <cursor>
+                                                                                <Cursor fx:constant="DEFAULT" />
+                                                                            </cursor>
                                                                         </AnchorPane>
-                                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="136.0" prefWidth="240.0">
+                                                                        <AnchorPane minHeight="136.0" minWidth="0.0" prefHeight="136.0" prefWidth="240.0">
                                                                             <children>
                                                                                 <Label layoutX="14.0" layoutY="14.0" text="Spieler 1:" />
                                                                                 <Label layoutX="14.0" layoutY="61.0" text="Spieler 2:" />
                                                                                 <ComboBox fx:id="gamesSpielerEins" layoutX="83.0" layoutY="9.0" prefWidth="150.0" />
                                                                                 <ComboBox fx:id="gamesSpielerZwei" layoutX="83.0" layoutY="56.0" prefWidth="150.0" />
                                                                             </children>
-                                                         <cursor>
-                                                            <Cursor fx:constant="DEFAULT" />
-                                                         </cursor>
+                                                                            <cursor>
+                                                                                <Cursor fx:constant="DEFAULT" />
+                                                                            </cursor>
                                                                         </AnchorPane>
                                                                     </items>
                                                                 </SplitPane>
                                                             </children>
                                                         </AnchorPane>
-                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                        <AnchorPane minHeight="0.0" minWidth="164.5" prefHeight="160.0" prefWidth="100.0">
                                                             <children>
                                                                 <Button fx:id="gamesPlaylistStarten" layoutX="7.0" layoutY="311.0" mnemonicParsing="false" onAction="#clickPlaylistStarten" prefHeight="36.0" prefWidth="147.0" text="Playlist starten" />
                                                                 <Label layoutX="14.0" layoutY="4.0" text="Playlist:" />
-                                                                <ListView fx:id="gamesAktuellePlaylist" layoutX="-4.0" layoutY="31.0" prefHeight="276.0" prefWidth="176.0">
-                                                   <cursor>
-                                                      <Cursor fx:constant="DEFAULT" />
-                                                   </cursor></ListView>
+                                                                <ListView fx:id="gamesAktuellePlaylist" layoutX="-4.0" layoutY="31.0" prefHeight="280.0" prefWidth="175.0">
+                                                                    <cursor>
+                                                                        <Cursor fx:constant="DEFAULT" />
+                                                                    </cursor></ListView>
                                                             </children>
                                                         </AnchorPane>
                                                     </items>
@@ -85,9 +88,9 @@
                             <items>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                     <children>
-                                        <SplitPane dividerPositions="0.4709141274238227" layoutY="-1.0" orientation="VERTICAL" prefHeight="363.0" prefWidth="600.0">
+                                        <SplitPane fx:id="split1" dividerPositions="0.4709141274238227" layoutY="-1.0" maxWidth="600.0" orientation="VERTICAL" prefHeight="363.0" prefWidth="600.0">
                                             <items>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                <AnchorPane minHeight="170.0" minWidth="160.0" prefHeight="100.0" prefWidth="160.0">
                                                     <children>
                                                         <Label layoutX="14.0" layoutY="14.0" text="Anlegen" />
                                                         <TextField fx:id="benutzerTextBoxAnlegen" layoutX="82.0" layoutY="52.0" />
@@ -95,7 +98,7 @@
                                                         <Button fx:id="benutzerErstellen" layoutX="261.0" layoutY="121.0" mnemonicParsing="false" onAction="#clickBenutzerErstellen" text="Erstellen" />
                                                     </children>
                                                 </AnchorPane>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                                <AnchorPane minHeight="300.0" minWidth="160.0" prefHeight="100.0" prefWidth="160.0">
                                                     <children>
                                                         <Label layoutX="14.0" layoutY="14.0" text="Ändern" />
                                                         <ComboBox fx:id="benutzerAuswahlZuAendern" layoutX="14.0" layoutY="35.0" prefHeight="31.0" prefWidth="147.0" />

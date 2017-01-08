@@ -1,6 +1,7 @@
 package windows;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -30,7 +31,14 @@ public class Main extends Application {
     primaryStage.setTitle("ArcadeBox");
     primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("images/pong.png")));
     primaryStage.setScene(new Scene(root, 600, 400));
+    root.getStylesheets().add("windows/layout.css");
+    primaryStage.setMaxHeight(440);
+    primaryStage.setMaxWidth(625);
+    primaryStage.setMinHeight(440);
+    primaryStage.setMinWidth(625);
     primaryStage.show();
+
+
   }
 
   public static void main(String[] args) {

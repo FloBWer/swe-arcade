@@ -1,0 +1,5 @@
+.table-view .arrow {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: " ";
+}

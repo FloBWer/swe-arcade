@@ -73,6 +73,8 @@ public class MainScreenController {
   Button benutzerAendernSpeichern;
   @FXML
   TableView<ObservableList<String>> statsTable;
+  @FXML
+  SplitPane split1;
 
   private List<Game> gamesUebergeben;
   private List<Game> playList;
@@ -88,7 +90,10 @@ public class MainScreenController {
    *<p>Erstellt von Daniel und Florian</p>
    */
   public void initialize() {
+
     initUsers();
+
+
     gamesUebergeben = Game.readGamesFolder();
     gamesSpielen.setDisable(true);
     gamesZurPlaylistHinzufügen.setDisable(true);
@@ -253,6 +258,10 @@ public class MainScreenController {
       stage.setTitle("Fehler!");
       stage.getIcons().add(new Image(getClass().getResourceAsStream("images/pong.png")));
       stage.setScene(new Scene(root));
+      stage.setMaxHeight(173);
+      stage.setMinHeight(173);
+      stage.setMaxWidth(288);
+      stage.setMinWidth(288);
       stage.setAlwaysOnTop(true);
       stage.requestFocus();
       stage.show();
@@ -386,6 +395,10 @@ public class MainScreenController {
       Scene newScene = new Scene(root);
       Stage newStage = new Stage();
       newStage.setScene(newScene);
+      newStage.setMaxWidth(270);
+      newStage.setMinWidth(270);
+      newStage.setMaxHeight(172);
+      newStage.setMinHeight(172);
       newStage.initModality(Modality.APPLICATION_MODAL);
       newStage.requestFocus();
       newStage.showAndWait();
@@ -479,6 +492,10 @@ public class MainScreenController {
       Scene newScene = new Scene(root);
       Stage newStage = new Stage();
       newStage.setScene(newScene);
+      newStage.setMaxWidth(444);
+      newStage.setMinWidth(444);
+      newStage.setMaxHeight(308);
+      newStage.setMinHeight(308);
       newStage.requestFocus();
       newStage.initModality(Modality.APPLICATION_MODAL);
       newStage.showAndWait();
