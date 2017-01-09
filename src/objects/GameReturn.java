@@ -1,7 +1,8 @@
 package objects;
 
-/**
- * Created by Shakreo on 20.12.2016.
+/** GameReturn
+ * Beschriebung: DatenKlasse zum Bearbeiten der Rückgabe-Werte eines Spiels
+ * Erstellt von Daniel
  */
 public class GameReturn {
   private String game;

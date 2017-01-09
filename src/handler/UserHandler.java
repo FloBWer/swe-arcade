@@ -6,8 +6,9 @@ import utils.ConfigFileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Shakreo on 06.12.2016.
+/** UserHandler
+ * Beschriebung: Klasse zur Kontrolle der bestehenden Benutzer
+ * Erstellt von Daniel
  */
 public class UserHandler {
 
@@ -34,6 +35,11 @@ public class UserHandler {
 
   //Methods
 
+  /**
+   * Erstellt einen neuen User
+   * @param name
+   * @return User oder null wenn der Benutzer bereits existiert
+   */
   public User newUser(String name) {
     name = limitUserName(name);
     if(getUser(name) == null) {
@@ -45,6 +51,11 @@ public class UserHandler {
     return null;
   }
 
+  /**
+   * Entfernt Leerzeichen im Benutzernamen und limitiert den Benutzernamen auf 10 Zeichen
+   * @param name
+   * @return String
+   */
   private String limitUserName(String name) {
     String limitedName = name;
     limitedName = limitedName.replaceAll(" ", "");
@@ -58,11 +69,21 @@ public class UserHandler {
     ConfigFileReader.saveUsers(this);
   }
 
+  /**
+   * Entfernt den Benutzer aus dem UserHandler
+   * @param name
+   */
   public void removeUser(String name) {
     users.remove(getUser(name));
     saveUsers();
   }
 
+  /**
+   * Ändert den Benutzernamen eines bestehenden Benutzers
+   * @param name
+   * @param newName
+   * @return
+   */
   public User changeUser(String name, String newName) {
     User changedUser = newUser(newName);
     if(changedUser != null) {

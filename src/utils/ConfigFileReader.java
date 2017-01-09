@@ -12,13 +12,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Shakreo on 11.12.2016.
+/** ConfigFileReader
+ * Beschreibung: Util-Klasse zum Arbeiten mit ConfigFiles
+ * Erstellt von Daniel
  */
 public class ConfigFileReader {
   private static String USERS_FILE = "users.json";
   private static String STATS_FOLDER = "stats";
 
+  /**
+   * Erstellt eine Instanz des UserHandlers
+   * @return UserHandler
+   */
   public static UserHandler buildUserHandler() {
     UserHandler userHandler;
     String usersString = readFile(USERS_FILE);
@@ -30,6 +35,10 @@ public class ConfigFileReader {
     return userHandler;
   }
 
+  /**
+   * Speichert Benutzer in Configurations-Datei
+   * @param userHandler
+   */
   public static void saveUsers(UserHandler userHandler) {
     try (Writer writer = new FileWriter(USERS_FILE)) {
       Gson gson = new GsonBuilder().create();
@@ -61,6 +70,12 @@ public class ConfigFileReader {
     return fileString;
   }
 
+  /**
+   * Erstellt eine neue Instanz des StatHandlers aus den Stat-Dateien
+   * @param gameList
+   * @param userHandler
+   * @return StatHandler
+   */
   public static StatHandler buildStatsHandler(List<Game> gameList, UserHandler userHandler) {
     StatHandler statHandler = new StatHandler();
     File statFolder = new File(STATS_FOLDER);
@@ -119,6 +134,10 @@ public class ConfigFileReader {
     return false;
   }
 
+  /**
+   * Speichert die Stats in den Stat-Dateien
+   * @param statHandler
+   */
   public static void saveStats(StatHandler statHandler) {
     HashMap<String, StatColumn> stats = statHandler.getStats();
     Set<String> keys = stats.keySet();
@@ -128,7 +147,7 @@ public class ConfigFileReader {
 
   }
 
-  public static void writeGameStats(StatColumn stats, String game) {
+  private static void writeGameStats(StatColumn stats, String game) {
     try (Writer writer = new FileWriter(STATS_FOLDER + "/" + game + ".json")) {
       Gson gson = new GsonBuilder().create();
       gson.toJson(stats, writer);

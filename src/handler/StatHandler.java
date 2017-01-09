@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by Shakreo on 18.12.2016.
+/** StatHandler
+ * Beschriebung: Klasse zur Kontrolle der Stat-Einträge
+ * Erstellt von Daniel
  */
+
 public class StatHandler {
   private HashMap<String, StatColumn> stats;
 
@@ -22,26 +24,51 @@ public class StatHandler {
     return stats;
   }
 
+
+  /**
+   * Methode zum Hinzufügen der bestehenden Stat-Einträge eines Spiels im StatHandler
+   * @param game
+   * @param statString
+   */
   public void addGame(String game, String statString) {
     Gson g = new Gson();
     StatColumn row = g.fromJson(statString, StatColumn.class);
     stats.put(game, row);
   }
 
+  /**
+   * Erstellen eines neuen Spiels mit leeren StatEinträgen
+   * @param game
+   * @param users
+   */
   public void newGame(String game, List<User> users) {
     stats.put(game, new StatColumn(users));
   }
 
+  /**
+   * Prüft ob das übergebene Spiel im Handler existiert
+   * @param game
+   * @return boolean
+   */
   public boolean containsGame(String game) {
     return stats.containsKey(game);
   }
 
+  /**
+   * Updated die Stats am Ende eines Spiels
+   * @param gameReturn
+   */
   public void updateStats(GameReturn gameReturn) {
     StatColumn statColumn = (StatColumn)stats.get(gameReturn.getGame());
     statColumn.getUser(gameReturn.getWinner()).addWin();
     statColumn.getUser(gameReturn.getLoser()).addLose();
   }
 
+  /**
+   * Gibt eine formatierte ArrayList mit den Stat-Einträgen eines Benutzers zurück.
+   * @param userName
+   * @return ArrayList
+   */
   public List<String> getUserRow(String userName) {
     List<String> row = new ArrayList<>();
     row.add(userName);
@@ -63,6 +90,11 @@ public class StatHandler {
     return row;
   }
 
+  /**
+   * Ändert den Benutzernamen im StatHandler
+   * @param userName
+   * @param newName
+   */
   public void renameUser(String userName, String newName) {
     stats.keySet().forEach(game -> {
       StatColumn column = (StatColumn)stats.get(game);
@@ -71,12 +103,20 @@ public class StatHandler {
     });
   }
 
+  /**
+   * Updated die Stats am Ende eines Spiels
+   * @param returnList
+   */
   public void updateStats(List<GameReturn> returnList) {
     returnList.forEach(returnEntry -> {
       updateStats(returnEntry);
     });
   }
 
+  /**
+   * Entfernt den übergebenen User aus dem StatHandler
+   * @param name
+   */
   public void removeUser(String name) {
     stats.keySet().forEach(game -> {
       StatColumn column = (StatColumn)stats.get(game);
@@ -84,6 +124,10 @@ public class StatHandler {
     });
   }
 
+  /**
+   * Fügt einen neuen User im StatHandler hinzu
+   * @param name
+   */
   public void addUser(String name) {
     stats.keySet().forEach(game -> {
       StatColumn column = (StatColumn)stats.get(game);

@@ -1,7 +1,8 @@
 package objects;
 
-/**
- * Created by Shakreo on 06.12.2016.
+/** User
+ * Beschriebung: DatenKlasse zum Speichern eines Benutzers
+ * Erstellt von Daniel
  */
 public class User {
   private String name;

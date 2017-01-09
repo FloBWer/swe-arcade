@@ -40,7 +40,13 @@ public class PlaylistErgebnisRevancheController {
   private Stage parent;
 
 
-
+  /**
+   * Initialisiert das Revanche-Fenster am Ende einer Playlist mit den Stats der Playlist
+   * @param returnList
+   * @param player1
+   * @param player2
+   * @param parent
+   */
   public void initialize(List<GameReturn> returnList, String player1, String player2, Stage parent) {
     this.parent = parent;
     revanche = false;
@@ -160,7 +166,10 @@ public class PlaylistErgebnisRevancheController {
 
   }
 
-
+  /**
+   * Click Event für den Button für Revanche - Ja
+   * @param event
+   */
   @FXML
   public void clickPlaylistRevancheJa(ActionEvent event) {
     revanche = true;
@@ -168,6 +177,10 @@ public class PlaylistErgebnisRevancheController {
     stage.close();
   }
 
+  /**
+   * Click Event für den Button für Revanche - Nein
+   * @param event
+   */
   @FXML
   public void clickPlaylistRevancheNein(ActionEvent event) {
     revanche = false;
@@ -196,6 +209,10 @@ public class PlaylistErgebnisRevancheController {
     return gameIds.get(game) + 1;
   }
 
+  /**
+   * Rückgabe Methode für den MainController ob eine Revanche gewünscht ist
+   * @return boolean
+   */
   public boolean getRevanche() {
     return revanche;
   }

@@ -236,7 +236,10 @@ public class MainScreenController {
     });
   }
 
-
+  /**
+   * ClickEvent für den Button Benutzer Erstellen
+   * @param event
+   */
   @FXML
   public void clickBenutzerErstellen(ActionEvent event) {
     User newUser = userHandler.newUser(benutzerTextBoxAnlegen.getText());
@@ -284,6 +287,10 @@ public class MainScreenController {
     gamesSpielerZwei.getItems().remove(name);
   }
 
+  /**
+   * Click Event für den Button Benutzer löschen
+   * @param event
+   */
   @FXML
   public void clickBenutzerLoeschen(ActionEvent event) {
     String name = benutzerAuswahlZuAendern.getSelectionModel().getSelectedItem().toString();
@@ -294,6 +301,10 @@ public class MainScreenController {
     ConfigFileReader.saveStats(statHandler);
   }
 
+  /**
+   * Click Event für den Button Benutzer Speichern
+   * @param event
+   */
   @FXML
   public void clickBenutzerAendernSpeichern(ActionEvent event) {
     String name = benutzerAuswahlZuAendern.getSelectionModel().getSelectedItem().toString();
@@ -310,6 +321,7 @@ public class MainScreenController {
       showBenutzerBereitsVorhanden();
     }
   }
+
   /**<h3>Name: clickZurPlaylistHinzufuegen</h3>
    * <p>
    *     Beschreibung: Bei Klick auf Button "zur Playlist hinzufügen" wird das angewählte Spiel zur Playlist
@@ -317,7 +329,6 @@ public class MainScreenController {
    * </p>
    *<p>Erstellt von Florian</p>
    */
-
   @FXML
   public void clickZurPlaylistHinzufuegen(ActionEvent event) {
     String selected = (String) gamesVerfuegbareSpiele.getSelectionModel().getSelectedItem();
@@ -335,13 +346,13 @@ public class MainScreenController {
       }
     }
   }
+
   /**<h3>Name: clickGamesSpielen</h3>
    * <p>
    *     Berschreibung: Startet Spiel über startGame Methode
    * </p>
    *<p>Erstellt von Florian</p>
    */
-
   @FXML
   public void clickGamesSpielen(ActionEvent event) {
 
@@ -420,6 +431,7 @@ public class MainScreenController {
     Gson g = new Gson();
     return g.fromJson(returnString, GameReturn.class);
   }
+
   /**<h3>Name: clickPlaylistStarten</h3>
    * <p>
    *     Startet Playlist über startPlaylist Methode beim Klick auf
@@ -432,11 +444,17 @@ public class MainScreenController {
     startPlaylist();
   }
 
+  /**
+   * Versteckt die Instanz des Hauptfensters
+   */
   public void hide() {
     Stage stage = (Stage) gamesPlaylistStarten.getScene().getWindow();
     stage.hide();
   }
 
+  /**
+   * Zeigt die Instanz des Hauptfensters
+   */
   public void show() {
     Stage stage = (Stage) gamesPlaylistStarten.getScene().getWindow();
     stage.show();
@@ -517,7 +535,6 @@ public class MainScreenController {
    * </p>
    *<p>Erstellt von Florian</p>
    */
-
   public void playlistAktivieren(){
     if (gamesAktuellePlaylist.getItems().size() != 0
         &&bedingungenSpielstartPruefen()) {
@@ -536,7 +553,6 @@ public class MainScreenController {
    * </p>
    *<p>Erstellt von Florian</p>
    */
-
   class ButtonListCell extends ListCell<String> {
 
     public void updateItem(String obj, boolean empty) {

@@ -19,12 +19,20 @@ public class RevancheController {
   Button revancheNein;
   private boolean revanche;
   private Stage parent;
-  
+
+  /**
+   * Initialisiert die Revanche-Abfrage bei einem Einzelspiel
+   * @param parent
+   */
   public void initialize(Stage parent) {
     this.parent = parent;
     revanche = false;
   }
 
+  /**
+   * Click Event für den Button für Revanche - Ja
+   * @param event
+   */
   @FXML
   public void clickRevancheJa(ActionEvent event) {
     revanche = true;
@@ -32,6 +40,10 @@ public class RevancheController {
     stage.close();
   }
 
+  /**
+   * Click Event für den Button für Revanche - Nein
+   * @param event
+   */
   @FXML
   public void clickRevancheNein(ActionEvent event) {
     revanche = false;
@@ -40,6 +52,10 @@ public class RevancheController {
     parent.show();
   }
 
+  /**
+   * Rückgabe Methode für den MainController ob eine Revanche gewünscht ist
+   * @return boolean
+   */
   public boolean getRevanche() {
     return revanche;
   }

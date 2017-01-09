@@ -1,7 +1,8 @@
 package objects;
 
-/**
- * Created by Shakreo on 18.12.2016.
+/** StatEntry
+ * Beschriebung: DatenKlasse zum Speichern der Stat-Einträge eines Benutzers in einem Spiel
+ * Erstellt von Daniel
  */
 public class StatEntry {
   private String user;
