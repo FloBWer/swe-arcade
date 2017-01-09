@@ -499,7 +499,7 @@ public class MainScreenController {
       newStage.setMaxWidth(444);
       newStage.setMinWidth(444);
       newStage.setMaxHeight(308);
-      newStage.setMinHeight(308);
+      newStage.setMinHeight(320);
       newStage.requestFocus();
       newStage.initModality(Modality.APPLICATION_MODAL);
       newStage.showAndWait();
