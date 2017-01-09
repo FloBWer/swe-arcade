@@ -394,6 +394,8 @@ public class MainScreenController {
       ctrl.initialize((Stage) gamesPlaylistStarten.getScene().getWindow());
       Scene newScene = new Scene(root);
       Stage newStage = new Stage();
+      newStage.getIcons().add(new Image(getClass().getResourceAsStream("images/pong.png")));
+      newStage.setTitle("Revanche?");
       newStage.setScene(newScene);
       newStage.setMaxWidth(270);
       newStage.setMinWidth(270);
@@ -492,6 +494,8 @@ public class MainScreenController {
       Scene newScene = new Scene(root);
       Stage newStage = new Stage();
       newStage.setScene(newScene);
+      newStage.getIcons().add(new Image(getClass().getResourceAsStream("images/pong.png")));
+      newStage.setTitle("Playlist beendet");
       newStage.setMaxWidth(444);
       newStage.setMinWidth(444);
       newStage.setMaxHeight(308);
