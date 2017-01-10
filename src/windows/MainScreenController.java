@@ -217,7 +217,7 @@ public class MainScreenController {
     }
     // add data
     for(User user : userHandler.getUsers()) {
-      statsTable.getItems().addAll(FXCollections.observableList(statHandler.getUserRow(user.getName())));
+      statsTable.getItems().addAll(FXCollections.observableList(statHandler.getUserRow(user.getName(),gamesUebergeben)));
     }
     winGes.setSortType(TableColumn.SortType.DESCENDING);
     statsTable.getSortOrder().add(winGes);

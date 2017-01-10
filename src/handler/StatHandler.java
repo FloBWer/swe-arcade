@@ -32,8 +32,12 @@ public class StatHandler {
    */
   public void addGame(String game, String statString) {
     Gson g = new Gson();
-    StatColumn row = g.fromJson(statString, StatColumn.class);
-    stats.put(game, row);
+    try {
+      StatColumn row = g.fromJson(statString, StatColumn.class);
+      stats.put(game, row);
+    }catch (Exception e){
+        //Hier direkt neues Jason file für unlesbare Statistiken?
+    }
   }
 
   /**
@@ -69,13 +73,13 @@ public class StatHandler {
    * @param userName
    * @return ArrayList
    */
-  public List<String> getUserRow(String userName) {
+  public List<String> getUserRow(String userName, List<Game> gamesUebergeben) {
     List<String> row = new ArrayList<>();
     row.add(userName);
     row.add("0");      //Gesamt wins
     row.add("0");      //Gesamt loses
-    stats.keySet().forEach(game -> {
-      StatColumn column = (StatColumn)stats.get(game);
+    for(Game game:gamesUebergeben){
+      StatColumn column = (StatColumn)stats.get(game.getName());
       StatEntry userEntry = column.getUser(userName);
       if(userEntry == null) {
         addUser(userName);
@@ -86,7 +90,8 @@ public class StatHandler {
       row.set(1,String.valueOf(Integer.parseInt(row.get(1))+userEntry.getWins()));
       row.add(String.valueOf(userEntry.getLoses()));
       row.set(2,String.valueOf(Integer.parseInt(row.get(2))+userEntry.getLoses()));
-    });
+      stats.keySet();
+    }
     return row;
   }
 
